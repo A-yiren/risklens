@@ -1,0 +1,43 @@
+:root { color-scheme: light; }
+body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif; }
+.legal-text { font-family: "Source Han Serif SC", "Songti SC", SimSun, serif; line-height: 1.9; }
+.contract-atmosphere {
+  background-color: #f6f3ec;
+  background-image:
+    radial-gradient(circle at 12% 10%, rgba(183, 124, 50, .10) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 84% 28%, rgba(15, 65, 53, .06) 0 1px, transparent 1.5px),
+    linear-gradient(116deg, transparent 0 49.85%, rgba(15, 65, 53, .025) 50%, transparent 50.15%);
+  background-size: 31px 31px, 43px 43px, 360px 360px;
+}
+.contract-hero { background-image: linear-gradient(115deg, rgba(255,255,255,.94), rgba(248,245,237,.86)); }
+.finance-atmosphere {
+  background-color: #f7faf6;
+  background-image:
+    radial-gradient(circle at 86% 16%, rgba(12, 74, 62, .13) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 76% 24%, rgba(217, 119, 6, .10) 0 1px, transparent 1.5px),
+    linear-gradient(120deg, rgba(12, 74, 62, .045), transparent 46%);
+  background-size: 29px 29px, 43px 43px, auto;
+}
+.calligraphic-title {
+  font-family: "STSong", "Songti SC", SimSun, serif;
+  font-weight: 600;
+  letter-spacing: .12em;
+  line-height: 1.45;
+}
+.template-card.is-selected { background-color: #f0fdf4; }
+.scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+.theme-toggle { border: 1px solid #e7e5e4; border-radius: .5rem; background: #fff; color: #57534e; padding: .35rem .5rem; font-size: .75rem; line-height: 1; }
+.theme-toggle:hover { background: #f5f5f4; }
+body.theme-dark { color-scheme: dark; background: #111827; color: #e7e5e4; }
+body.theme-dark .bg-white, body.theme-dark .bg-stone-50 { background-color: #18212f !important; }
+body.theme-dark .bg-stone-100 { background-color: #253245 !important; }
+body.theme-dark .text-stone-900 { color: #f5f5f4 !important; }
+body.theme-dark .text-stone-700, body.theme-dark .text-stone-600, body.theme-dark .text-stone-500 { color: #cbd5e1 !important; }
+body.theme-dark .text-stone-400 { color: #94a3b8 !important; }
+body.theme-dark .border, body.theme-dark .border-stone-100, body.theme-dark .border-stone-200, body.theme-dark .border-l, body.theme-dark .border-r, body.theme-dark .border-b, body.theme-dark .border-t { border-color: #334155 !important; }
+body.theme-dark input, body.theme-dark select, body.theme-dark textarea, body.theme-dark pre { background-color: #0f172a !important; color: #e2e8f0 !important; border-color: #475569 !important; }
+body.theme-dark .theme-toggle { background: #18212f; color: #e2e8f0; border-color: #475569; }
+body.theme-dark.contract-atmosphere { background-color: #111827; background-image: linear-gradient(116deg, transparent 0 49.85%, rgba(148, 163, 184, .03) 50%, transparent 50.15%); }
+body.theme-dark .contract-hero, body.theme-dark .template-card.is-selected { background-color: #18212f !important; background-image: none; }
+body.theme-dark .finance-atmosphere { background-color: #18212f; background-image: none; }

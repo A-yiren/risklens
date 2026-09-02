@@ -1,0 +1,31 @@
+flowchart TB
+    Step1["<b>🔍 步骤 1 · RAG 检索</b><br/><br/>Embedding + Qdrant 混合检索 top-20<br/>↓<br/>RRF 融合 + 重排 → 送入 LLM"]
+
+    Step2["<b>⚡ 步骤 2 · 并行执行 (Parallel)</b><br/><br/>🤖 A1 焦点识别 Agent — 识别法律关系 / 争议焦点<br/>🤖 A4 风险评估 Agent — 扫描潜在法律风险"]
+
+    Step3["<b>📝 步骤 3 · 串行分析</b><br/><br/>🤖 A2 法律分析 Agent<br/>基于 A1 焦点 + 检索法条<br/>输出带 [n] 引用的分析"]
+
+    Step4["<b>🛡️ 步骤 4 · 引用核验 ⭐</b><br/><br/>🤖 A3 引用核验 Agent<br/>逐字核对每条 [n] 引用是否真在召回文档中<br/>标「幻觉」/ 标「通过」"]
+
+    Step5["<b>📦 步骤 5 · 整合输出</b><br/><br/>① 过滤 A3 标「幻觉」的引用<br/>② 引用去重 (法名+条款号)<br/>③ 补全元数据 (官方源 / 发布机关 / 状态)<br/>④ 重新编号 [1] [2] [3]<br/>⑤ 重算 confidence 分数"]
+
+    Input["📥 案情输入<br/>Case Input"]:::inputStyle
+    Output["📤 最终输出<br/>每条观点带官方源链接<br/>一键跳转官方法律法规库"]:::outputStyle
+
+    Input ==> Step1
+    Step1 ==> Step2
+    Step2 ==> Step3
+    Step3 ==> Step4
+    Step4 ==> Step5
+    Step5 ==> Output
+
+    style Step1 fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#1c1917
+    style Step2 fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#1c1917
+    style Step3 fill:#dcfce7,stroke:#0c4a3e,stroke-width:3px,color:#0c4a3e
+    style Step4 fill:#fbbf24,stroke:#d97706,stroke-width:4px,color:#000
+    style Step5 fill:#dbeafe,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+    style Input fill:#f5f5f4,stroke:#0c4a3e,stroke-width:2px,color:#1c1917
+    style Output fill:#0c4a3e,stroke:#083029,stroke-width:3px,color:#fff
+
+    classDef inputStyle font-size:18px
+    classDef outputStyle font-size:18px

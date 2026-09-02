@@ -1,0 +1,41 @@
+{
+  "dataset_name": "融资材料预审内部规则基准",
+  "version": "FPC-Benchmark-0.1",
+  "review_status": "PENDING_DOUBLE_EXPERT_REVIEW",
+  "scope_notice": "所有材料均为去标识化合成文本；仅用于回归测试，不能替代真实银行或专家评测。",
+  "cases": [
+    {
+      "id": "complete-consistent",
+      "documents": [
+        {"name": "营业执照.txt", "text": "营业执照\n企业名称：星河科技有限公司\n法定代表人：李四\n统一社会信用代码：91310000ABCDEFGH12"},
+        {"name": "融资申请书.txt", "text": "融资申请\n申请人：星河科技有限公司\n法定代表人：李四\n申请金额：100万元"},
+        {"name": "财务报表.txt", "text": "2025年度资产负债表\n利润表\n现金流量表"},
+        {"name": "完税证明.txt", "text": "完税证明 纳税申报"},
+        {"name": "银行流水.txt", "text": "银行流水 账户交易明细"},
+        {"name": "销售合同.txt", "text": "销售合同 合同编号：S-2026-01"},
+        {"name": "应收账款账龄表.txt", "text": "应收账款账龄 客户名称 回款计划"}
+      ],
+      "expected_major_risks": []
+    },
+    {
+      "id": "missing-core-materials",
+      "documents": [
+        {"name": "营业执照.txt", "text": "营业执照\n企业名称：远帆商贸有限公司\n法定代表人：王五\n统一社会信用代码：91310000ZXCVBNM123"}
+      ],
+      "expected_major_risks": ["missing:loan_application", "missing:financial_statements", "missing:tax_material", "missing:bank_statement", "missing:major_contract", "missing:receivables_schedule"]
+    },
+    {
+      "id": "legal-representative-conflict",
+      "documents": [
+        {"name": "营业执照.txt", "text": "营业执照\n企业名称：北辰制造有限公司\n法定代表人：张三\n统一社会信用代码：91310000QWERTYU456"},
+        {"name": "融资申请书.txt", "text": "融资申请\n申请人：北辰制造有限公司\n法定代表人：赵六\n申请金额：80万元"},
+        {"name": "财务报表.txt", "text": "2025年度资产负债表\n利润表\n现金流量表"},
+        {"name": "完税证明.txt", "text": "完税证明 纳税申报"},
+        {"name": "银行流水.txt", "text": "银行流水 账户交易明细"},
+        {"name": "销售合同.txt", "text": "销售合同 合同编号：S-2026-02"},
+        {"name": "应收账款账龄表.txt", "text": "应收账款账龄 客户名称 回款计划"}
+      ],
+      "expected_major_risks": ["inconsistency:legal_representative"]
+    }
+  ]
+}

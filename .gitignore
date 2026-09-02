@@ -1,0 +1,16 @@
+# Local secrets and runtime state
+.env
+.env.local
+*.pem
+*.key
+secrets.yaml
+
+# Generated runtime artifacts
+application/storage/
+application/outputs/
+application/verify-screenshots/
+application/**/__pycache__/
+application/**/.pytest_cache/
+application/**/.venv/
+application/frontend/node_modules/
+*.log

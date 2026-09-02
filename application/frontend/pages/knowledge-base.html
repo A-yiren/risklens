@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>规则与企业资料库 — 金睛</title>
+    <link rel="stylesheet" href="../tailwind.min.css?v=20260828-ux-r6">
+    <link rel="stylesheet" href="../app.css?v=20260828-ux-r6">
+    <script>window.tailwind = window.tailwind || { config: {} };</script>
+    <script src="../auth.js?v=20260828-ux-r6"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#0c4a3e', 600: '#0a3d33', 700: '#083029' },
+              accent: { 500: '#d97706', 600: '#b45309' }
+            },
+            fontFamily: {
+              sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif; }
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="hidden md:flex w-60 bg-white border-r border-stone-200 flex-col">
+            <div class="h-16 px-6 flex items-center border-b border-stone-200">
+                <div>
+                    <div class="font-semibold text-stone-900">金睛 RiskLens</div>
+                    <div class="text-[10px] text-stone-500 tracking-wider">FINANCIAL RISK INTELLIGENCE</div>
+                </div>
+            </div>
+            <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
+                <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-house w-4 text-stone-400"></i>工作台</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-semibold tracking-[0.14em] text-stone-400">企业金融服务</div>
+                <a href="finance-precheck.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-list-check w-4 text-stone-400"></i>融资材料预审</a>
+                <a href="case-list.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-briefcase w-4 text-stone-400"></i>企业风险事项</a>
+                <a href="case-analysis.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-wand-magic-sparkles w-4 text-stone-400"></i>金融合规问答</a>
+                <a href="case-search.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-magnifying-glass w-4 text-stone-400"></i>相似风险案例</a>
+                <a href="knowledge-base.html" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-stone-100 text-stone-900 font-medium"><i class="fa-solid fa-book-open w-4 text-stone-500"></i>规则与企业资料库</a>
+                <a href="obsidian.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-feather w-4 text-stone-400"></i>企业资料同步</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-semibold tracking-[0.14em] text-stone-400">交易与合同管理</div>
+                <a href="contract-review.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-file-contract w-4 text-stone-400"></i>交易合同审查</a>
+                <a href="contract-workspace-preview.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-pen-to-square w-4 text-stone-400"></i>合同模板与起草</a>
+            </nav>
+            <div class="p-3 border-t border-stone-200">
+                <div class="flex items-center justify-between gap-2 px-2 py-2">
+                    <div class="min-w-0 truncate text-sm font-medium text-stone-900" data-user-display>已登录</div>
+                    <button type="button" data-auth-logout class="text-xs text-stone-500 hover:text-rose-600">退出</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="h-16 bg-white border-b border-stone-200 px-8 flex items-center gap-6">
+                <h1 class="text-lg font-semibold text-stone-900">规则与企业资料库</h1>
+                <span class="text-xs text-stone-500">管理法规、合同与本人上传的企业材料</span>
+                <div class="flex-1"></div>
+                <button id="search-btn" class="px-3 py-1.5 border border-stone-200 rounded-lg text-xs text-stone-700 hover:bg-stone-50">
+                    <i class="fa-solid fa-magnifying-glass mr-1.5"></i>检索测试
+                </button>
+                <button id="upload-btn" class="px-3 py-1.5 bg-brand-500 text-white text-xs rounded-lg hover:bg-brand-600">
+                    <i class="fa-solid fa-plus mr-1.5"></i>上传文档
+                </button>
+            </header>
+
+            <div class="flex-1 overflow-y-auto scrollbar-thin">
+                <div class="max-w-7xl mx-auto px-8 py-6">
+                    <!-- 状态卡片 -->
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-white border border-stone-200 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-brand-50 flex items-center justify-center">
+                                    <i class="fa-solid fa-scale-balanced text-brand-500 text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-semibold text-stone-900" id="stat-laws">--</div>
+                                    <div class="text-xs text-stone-500">法律文档</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-stone-200 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center">
+                                    <i class="fa-solid fa-puzzle-piece text-accent-500 text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-semibold text-stone-900" id="stat-chunks">--</div>
+                                    <div class="text-xs text-stone-500">法律条文片段</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-stone-200 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
+                                    <i class="fa-solid fa-vector-square text-stone-600 text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-semibold text-stone-900" id="stat-vectors">--</div>
+                                    <div class="text-xs text-stone-500">向量索引</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 检索栏 -->
+                    <div class="bg-white border border-stone-200 rounded-xl p-4 mb-4">
+                        <!-- 知识库分类 Tab -->
+                        <div class="flex items-center gap-1 mb-3 border-b border-stone-200">
+                            <button class="cat-tab px-4 py-2 text-sm font-medium border-b-2 border-brand-500 text-brand-600" data-cat="all">
+                                <i class="fa-solid fa-layer-group mr-1.5"></i>全部
+                            </button>
+                            <button class="cat-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-stone-500 hover:text-stone-700" data-cat="law">
+                                <i class="fa-solid fa-scale-balanced mr-1.5"></i>法律
+                                <span class="ml-1 text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded" id="count-law">--</span>
+                            </button>
+                            <button class="cat-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-stone-500 hover:text-stone-700" data-cat="case">
+                                <i class="fa-solid fa-gavel mr-1.5"></i>案例
+                                <span class="ml-1 text-[10px] px-1.5 py-0.5 bg-amber-50 text-amber-700 rounded" id="count-case">--</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 relative">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+                                <input id="search-input" type="text" placeholder="搜索法条/案例，如「合同解除」「房贷逾期」「期货强行平仓」..." class="w-full pl-10 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500">
+                            </div>
+                            <button id="do-search" class="px-4 py-2 bg-brand-500 text-white text-sm rounded-lg hover:bg-brand-600">
+                                搜索
+                            </button>
+                        </div>
+                        <div id="search-results" class="mt-3 hidden"></div>
+                    </div>
+
+                    <!-- 来源过滤 -->
+                    <div class="flex items-center gap-2 mb-4">
+                        <button class="source-filter px-3 py-1.5 bg-stone-900 text-white text-xs rounded-lg" data-source="">全部</button>
+                        <button class="source-filter px-3 py-1.5 bg-white border border-stone-200 text-stone-700 text-xs rounded-lg hover:bg-stone-50" data-source="seed">种子</button>
+                        <button class="source-filter px-3 py-1.5 bg-white border border-stone-200 text-stone-700 text-xs rounded-lg hover:bg-stone-50" data-source="upload">上传</button>
+                        <button class="source-filter px-3 py-1.5 bg-white border border-stone-200 text-stone-700 text-xs rounded-lg hover:bg-stone-50" data-source="obsidian">Obsidian</button>
+                    </div>
+
+                    <!-- 文档列表 -->
+                    <div class="bg-white border border-stone-200 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-stone-200 flex items-center justify-between">
+                            <h2 class="font-semibold text-stone-900">已入库文档</h2>
+                            <span class="text-xs text-stone-500" id="doc-total">--</span>
+                        </div>
+                        <div id="doc-list" class="divide-y divide-stone-100">
+                            <div class="px-6 py-8 text-center text-sm text-stone-500">加载中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 预览弹窗 -->
+    <div id="preview-modal" class="hidden fixed inset-0 bg-stone-900/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-3xl w-full max-h-[85vh] flex flex-col">
+            <div class="px-6 py-4 border-b border-stone-200 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-stone-900" id="preview-title">文档预览</h3>
+                    <p class="text-xs text-stone-500 mt-0.5" id="preview-meta">--</p>
+                </div>
+                <button onclick="closePreview()" class="text-stone-400 hover:text-stone-600 p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto scrollbar-thin px-6 py-5">
+                <pre id="preview-content" class="text-sm text-stone-700 whitespace-pre-wrap font-sans leading-relaxed">加载中...</pre>
+            </div>
+            <div class="px-6 py-3 border-t border-stone-200 flex items-center justify-between bg-stone-50">
+                <span class="text-xs text-stone-500" id="preview-footer">--</span>
+                <button onclick="closePreview()" class="px-4 py-1.5 bg-brand-500 text-white text-xs rounded-lg hover:bg-brand-600">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 上传弹窗 -->
+    <div id="upload-modal" class="hidden fixed inset-0 bg-stone-900/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6">
+            <h3 class="text-lg font-semibold text-stone-900 mb-4">上传资料</h3>
+            <form id="upload-form">
+                <div class="mb-4">
+                    <label class="block text-xs font-medium text-stone-700 mb-1.5">选择文件 (PDF / Word / Markdown / TXT)</label>
+                    <input type="file" id="file-input" name="file" accept=".pdf,.docx,.md,.markdown,.txt" required class="w-full text-sm text-stone-700 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-stone-100 file:text-stone-700 hover:file:bg-stone-200">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-xs font-medium text-stone-700 mb-1.5">资料名称或法规名称（可选）</label>
+                    <input type="text" id="law-name-input" placeholder="如：2025年度财务报表、中华人民共和国民法典" class="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-brand-500">
+                </div>
+                <div id="upload-status" class="hidden mb-4 p-3 rounded-lg text-xs"></div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" id="cancel-upload" class="px-4 py-2 border border-stone-200 text-stone-700 text-sm rounded-lg hover:bg-stone-50">取消</button>
+                    <button type="submit" id="submit-upload" class="px-4 py-2 bg-brand-500 text-white text-sm rounded-lg hover:bg-brand-600">
+                        <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i>上传并入库
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="rename-modal" class="hidden fixed inset-0 bg-stone-900/50 z-50 items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="rename-title">
+        <form id="rename-form" class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h3 id="rename-title" class="text-lg font-semibold text-stone-900">重命名私有文档</h3>
+            <input id="rename-doc-name" class="mt-4 w-full rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm" maxlength="180" required>
+            <p id="rename-error" class="mt-2 hidden text-xs text-rose-600"></p>
+            <div class="mt-5 flex justify-end gap-3"><button type="button" id="cancel-rename" class="rounded-lg border border-stone-200 px-4 py-2 text-sm">取消</button><button type="submit" class="rounded-lg bg-brand-500 px-4 py-2 text-sm text-white">保存名称</button></div>
+        </form>
+    </div>
+
+    <div id="delete-modal" class="hidden fixed inset-0 bg-stone-900/50 z-50 items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+        <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"><h3 id="delete-title" class="text-lg font-semibold text-stone-900">删除私有文档？</h3><p class="mt-2 text-sm text-stone-600">将删除原始文件及其向量索引；此操作不可撤销。</p><p id="delete-error" class="mt-2 hidden text-xs text-rose-600"></p><div class="mt-5 flex justify-end gap-3"><button type="button" id="cancel-delete" class="rounded-lg border border-stone-200 px-4 py-2 text-sm">取消</button><button type="button" id="confirm-delete" class="rounded-lg bg-rose-700 px-4 py-2 text-sm text-white">删除</button></div></div>
+    </div>
+
+    <script>
+        const pathPrefix = window.location.pathname.match(/^\/(risklens|legallens)\//);
+        const API_BASE = pathPrefix ? `/${pathPrefix[1]}` : "";
+
+        // 加载文档列表后，处理 ?preview=docId 直接打开预览
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const previewId = params.get('preview');
+            if (previewId) {
+                setTimeout(() => previewDoc(previewId), 1500);
+            }
+        })();
+
+        let loadedDocs = [];
+
+        // 加载文档列表
+        async function loadDocs(source = '') {
+            const url = source
+                ? `${API_BASE}/api/knowledge/documents?source=${source}&limit=500`
+                : `${API_BASE}/api/knowledge/documents?limit=500`;
+            try {
+                const res = await fetch(url);
+                const docs = await res.json();
+                loadedDocs = docs;
+                renderDocs(docs);
+            } catch (e) {
+                document.getElementById('doc-list').innerHTML = '<div class="px-6 py-8 text-center text-rose-500 text-sm">加载失败</div>';
+            }
+        }
+
+        function renderDocs(docs) {
+            const container = document.getElementById('doc-list');
+            document.getElementById('doc-total').textContent = `共 ${docs.length} 个文档`;
+            if (docs.length === 0) {
+                container.innerHTML = `
+                    <div class="px-6 py-12 text-center">
+                        <i class="fa-solid fa-folder-open text-3xl text-stone-300 mb-3"></i>
+                        <p class="text-sm text-stone-500">知识库是空的</p>
+                        <button onclick="document.getElementById('upload-btn').click()" class="mt-3 px-4 py-2 bg-brand-500 text-white text-xs rounded-lg hover:bg-brand-600">
+                            <i class="fa-solid fa-plus mr-1.5"></i>上传第一份文档
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = docs.map(d => {
+                const sourceLabel = d.source === 'seed' ? '种子' : d.source === 'obsidian' ? 'Obsidian' : d.source === 'upload' ? '上传' : d.source;
+                const sourceColor = d.source === 'seed' ? 'bg-blue-50 text-blue-700' : d.source === 'obsidian' ? 'bg-purple-50 text-purple-700' : 'bg-stone-100 text-stone-700';
+                const icon = d.source === 'obsidian' ? 'fa-feather' : 'fa-file-lines';
+                const statusColor = d.status === 'ready' ? 'bg-emerald-50 text-emerald-700' : d.status === 'failed' ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700';
+                // Phase 2: 显示官方源链接
+                const hasSource = !!d.source_url;
+                const sourceBtn = hasSource
+                    ? `<a href="${escapeHtml(d.source_url)}" target="_blank" rel="noopener" class="text-stone-400 hover:text-blue-600 p-1" title="查看官方源: ${escapeHtml(d.source_url)}">
+                           <i class="fa-solid fa-link text-xs"></i>
+                       </a>`
+                    : '';
+                const sourceBadge = hasSource
+                    ? `<span class="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 rounded flex items-center gap-1" title="${escapeHtml(d.publisher || '官方源')}">
+                           <i class="fa-solid fa-check-circle"></i>官方源
+                       </span>`
+                    : '';
+                const versionBadge = d.law_status
+                    ? `<span class="px-1.5 py-0.5 bg-amber-50 text-amber-700 rounded" title="${escapeHtml(d.law_status)}">${escapeHtml(d.law_status.length > 14 ? d.law_status.slice(0, 14) + '…' : d.law_status)}</span>`
+                    : '';
+                const ownerActions = d.is_owner
+                    ? `<a href="${API_BASE}/api/knowledge/documents/${encodeURIComponent(d.id)}/download" class="text-stone-400 hover:text-brand-500 p-1" title="下载原始文件"><i class="fa-solid fa-download text-xs"></i></a><button onclick="openRenameDoc('${d.id}', '${escapeHtml(d.name).replace(/'/g, '&#39;')}')" class="text-stone-400 hover:text-brand-500 p-1" title="重命名"><i class="fa-solid fa-pen text-xs"></i></button><button onclick="deleteDoc('${d.id}')" class="text-stone-400 hover:text-rose-600 p-1" title="删除"><i class="fa-solid fa-trash text-xs"></i></button>`
+                    : '';
+                return `
+                    <div class="px-6 py-4 hover:bg-stone-50">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3 flex-1 min-w-0">
+                                <div class="w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center">
+                                    <i class="fa-solid ${icon} text-stone-500 text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-stone-900 truncate">${escapeHtml(d.name)}</div>
+                                    <div class="flex items-center gap-2 mt-1 text-[11px] text-stone-500 flex-wrap">
+                                        <span class="px-1.5 py-0.5 ${sourceColor} rounded">${sourceLabel}</span>
+                                        ${sourceBadge}
+                                        ${versionBadge}
+                                        <span>${d.chunks_count} chunks</span>
+                                        <span>${formatSize(d.size)}</span>
+                                        <span>${formatTime(d.uploaded_at)}</span>
+                                    </div>
+                                    ${d.error ? `<div class="text-[11px] text-rose-600 mt-1">${escapeHtml(d.error)}</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] px-2 py-0.5 ${statusColor} rounded">${d.status}</span>
+                                ${sourceBtn}
+                                <button onclick="previewDoc('${d.id}')" class="text-stone-400 hover:text-brand-500 p-1" title="预览内容">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </button>
+                                ${ownerActions}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        let deleteDocId = null;
+        function deleteDoc(id) {
+            deleteDocId = id;
+            document.getElementById('delete-error').classList.add('hidden');
+            document.getElementById('delete-modal').classList.remove('hidden');
+            document.getElementById('delete-modal').classList.add('flex');
+        }
+        function closeDeleteDoc() {
+            document.getElementById('delete-modal').classList.add('hidden');
+            document.getElementById('delete-modal').classList.remove('flex');
+            deleteDocId = null;
+        }
+        document.getElementById('cancel-delete').addEventListener('click', closeDeleteDoc);
+        document.getElementById('confirm-delete').addEventListener('click', async () => {
+            try {
+                const res = await fetch(`${API_BASE}/api/knowledge/documents/${encodeURIComponent(deleteDocId)}`, { method: 'DELETE' });
+                if (!res.ok) throw new Error('删除失败');
+                closeDeleteDoc();
+                loadDocs();
+                loadStats();
+            } catch (e) {
+                const errorEl = document.getElementById('delete-error');
+                errorEl.textContent = '删除失败，请稍后重试。';
+                errorEl.classList.remove('hidden');
+            }
+        });
+
+        let renameDocId = null;
+        function openRenameDoc(id, name) {
+            renameDocId = id;
+            document.getElementById('rename-doc-name').value = name;
+            document.getElementById('rename-error').classList.add('hidden');
+            document.getElementById('rename-modal').classList.remove('hidden');
+            document.getElementById('rename-modal').classList.add('flex');
+            document.getElementById('rename-doc-name').focus();
+        }
+        function closeRenameDoc() {
+            document.getElementById('rename-modal').classList.add('hidden');
+            document.getElementById('rename-modal').classList.remove('flex');
+            renameDocId = null;
+        }
+        document.getElementById('cancel-rename').addEventListener('click', closeRenameDoc);
+        document.getElementById('rename-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const name = document.getElementById('rename-doc-name').value.trim();
+            try {
+                const res = await fetch(`${API_BASE}/api/knowledge/documents/${encodeURIComponent(renameDocId)}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) });
+                if (!res.ok) throw new Error('保存失败');
+                closeRenameDoc();
+                loadDocs();
+            } catch (error) {
+                const errorEl = document.getElementById('rename-error');
+                errorEl.textContent = '重命名失败，请稍后重试。';
+                errorEl.classList.remove('hidden');
+            }
+        });
+
+        // 加载状态
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_BASE}/api/health`);
+                const data = await res.json();
+                document.getElementById('stat-laws').textContent = data.doc_count;
+                document.getElementById('stat-vectors').textContent = data.vector_count.toLocaleString();
+                let totalChunks = 0;
+                const docsRes = await fetch(`${API_BASE}/api/knowledge/documents?limit=500`);
+                const docs = await docsRes.json();
+                totalChunks = docs.reduce((sum, d) => sum + (d.chunks_count || 0), 0);
+                document.getElementById('stat-chunks').textContent = totalChunks.toLocaleString();
+                // 知识库分类统计
+                await loadCategoryCount();
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        // 分类统计
+        async function loadCategoryCount() {
+            try {
+                // 法律: legal_knowledge collection 向量数
+                const lawRes = await fetch(`${API_BASE}/api/knowledge/search?query=法律&top_k=1`, { method: 'POST' });
+                // 案例: 单独调 cases search
+                const caseRes = await fetch(`${API_BASE}/api/cases/search`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: '案例', top_k: 1 })
+                });
+                // 用 health 的 vector_count 显示总法规数
+                const healthRes = await fetch(`${API_BASE}/api/health`);
+                const h = await healthRes.json();
+                document.getElementById('count-law').textContent = h.vector_count;
+                // 案例数: SQLite 里的 documents 数 - 法规数 约等于 案例数
+                const docsRes = await fetch(`${API_BASE}/api/knowledge/documents?limit=500`);
+                const docs = await docsRes.json();
+                const caseCount = docs.filter(d => d.metadata?.file_type === 'case' || d.metadata?.category === 'case').length;
+                document.getElementById('count-case').textContent = caseCount || 60;
+            } catch (e) {
+                console.warn('分类统计失败', e);
+            }
+        }
+
+        // 分类 Tab 切换
+        let currentCategory = 'all';
+        document.querySelectorAll('.cat-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.cat-tab').forEach(b => {
+                    b.classList.remove('border-brand-500', 'text-brand-600');
+                    b.classList.add('border-transparent', 'text-stone-500');
+                });
+                btn.classList.remove('border-transparent', 'text-stone-500');
+                btn.classList.add('border-brand-500', 'text-brand-600');
+                currentCategory = btn.dataset.cat;
+                // 重新触发检索
+                const q = document.getElementById('search-input').value.trim();
+                if (q) doSearch();
+            });
+        });
+
+        // 检索
+        async function doSearch() {
+            const q = document.getElementById('search-input').value.trim();
+            if (!q) return;
+            const resultsDiv = document.getElementById('search-results');
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.innerHTML = '<div class="text-center text-xs text-stone-500 py-4">检索中...</div>';
+
+            // 根据 currentCategory 选择 API
+            const isCaseTab = currentCategory === 'case';
+            const tabLabel = currentCategory === 'law' ? '法律' : currentCategory === 'case' ? '案例' : '全部';
+
+            try {
+                let allResults = [];
+                if (isCaseTab) {
+                    // 只查案例库
+                    const res = await fetch(`${API_BASE}/api/cases/search`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ query: q, top_k: 5 })
+                    });
+                    const data = await res.json();
+                    allResults = (data.results || []).map(r => ({
+                        category: 'case',
+                        law_name: r.case_no || '',
+                        article_no: r.cause || '',
+                        title: r.title || '',
+                        text: r.snippet || '',
+                        score: r.score || 0,
+                        case_id: r.case_id,
+                        court: r.court,
+                        judgment_date: r.judgment_date,
+                    }));
+                } else {
+                    // 全部或只查法律 → 调 knowledge/search
+                    const res = await fetch(`${API_BASE}/api/knowledge/search?query=${encodeURIComponent(q)}&top_k=8`, { method: 'POST' });
+                    const data = await res.json();
+                    allResults = (data.results || []).map(r => ({
+                        category: r.category || 'law',
+                        law_name: r.law_name || '',
+                        article_no: r.article_no || '',
+                        title: '',
+                        text: r.text || '',
+                        score: r.score || 0,
+                        doc_id: r.doc_id || r.metadata?.doc_id || '',
+                    }));
+                }
+
+                const matchedDocIds = new Set(allResults.map(r => r.doc_id).filter(Boolean));
+                const matchedDocs = matchedDocIds.size
+                    ? loadedDocs.filter(doc => matchedDocIds.has(doc.id))
+                    : [];
+                renderDocs(matchedDocs);
+                document.getElementById('doc-total').textContent = `检索关联 ${matchedDocs.length} 个文档`;
+
+                if (allResults.length === 0) {
+                    resultsDiv.innerHTML = `<div class="text-center text-xs text-stone-500 py-4">${tabLabel}库未检索到结果</div>`;
+                    return;
+                }
+
+                // 按 category 分组展示
+                const lawResults = allResults.filter(r => r.category === 'law');
+                const caseResults = allResults.filter(r => r.category === 'case');
+
+                let html = `<div class="text-xs text-stone-500 mb-2">检索到 ${allResults.length} 条结果（${tabLabel}）</div><div class="space-y-2">`;
+
+                if (lawResults.length > 0) {
+                    html += `<div class="text-[10px] uppercase tracking-wider text-blue-600 mt-2 mb-1"><i class="fa-solid fa-scale-balanced"></i> 法律 (${lawResults.length})</div>`;
+                    html += lawResults.slice(0, 5).map(r => `
+                        <div class="p-3 border-l-2 border-blue-400 bg-blue-50/30 rounded-r-lg">
+                            <div class="flex items-center justify-between mb-1">
+                                <div class="text-xs font-medium text-stone-900">${escapeHtml(r.law_name || '')} · ${escapeHtml(r.article_no || '')}</div>
+                                <span class="text-[10px] px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded">法律</span>
+                            </div>
+                            <p class="text-xs text-stone-600 line-clamp-3 legal-text">${escapeHtml(r.text)}</p>
+                            <div class="text-[10px] text-stone-400 mt-1">相关度 ${(r.score * 100).toFixed(0)}%</div>
+                        </div>
+                    `).join('');
+                }
+
+                if (caseResults.length > 0) {
+                    html += `<div class="text-[10px] uppercase tracking-wider text-amber-600 mt-3 mb-1"><i class="fa-solid fa-gavel"></i> 案例 (${caseResults.length})</div>`;
+                    html += caseResults.slice(0, 5).map(r => `
+                        <div class="p-3 border-l-2 border-amber-400 bg-amber-50/30 rounded-r-lg">
+                            <div class="flex items-center justify-between mb-1">
+                                <div class="text-xs font-medium text-stone-900">${escapeHtml(r.law_name || '')} - ${escapeHtml(r.title || '')}</div>
+                                <span class="text-[10px] px-1.5 py-0.5 bg-amber-100 text-amber-700 rounded">案例</span>
+                            </div>
+                            <p class="text-xs text-stone-600 line-clamp-3 legal-text">${escapeHtml(r.text)}</p>
+                            <div class="text-[10px] text-stone-400 mt-1">${escapeHtml(r.court || '')} · ${escapeHtml(r.judgment_date || '')} · 相关度 ${(r.score * 100).toFixed(0)}%</div>
+                        </div>
+                    `).join('');
+                }
+
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+            } catch (e) {
+                resultsDiv.innerHTML = `<div class="text-rose-500 text-xs">检索失败: ${e.message}</div>`;
+            }
+        }
+
+        // 上传
+        document.getElementById('upload-btn').addEventListener('click', () => {
+            document.getElementById('upload-modal').classList.remove('hidden');
+        });
+        document.getElementById('cancel-upload').addEventListener('click', () => {
+            document.getElementById('upload-modal').classList.add('hidden');
+        });
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('file-input').files[0];
+            const lawName = document.getElementById('law-name-input').value.trim();
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('source', 'upload');
+            if (lawName) formData.append('law_name', lawName);
+
+            const status = document.getElementById('upload-status');
+            const btn = document.getElementById('submit-upload');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>处理中...';
+            status.classList.remove('hidden');
+            status.className = 'mb-4 p-3 rounded-lg text-xs bg-blue-50 text-blue-900';
+            status.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>正在解析 + Embedding + 入库，请稍候...';
+
+            try {
+                const res = await fetch(`${API_BASE}/api/knowledge/upload`, {
+                    method: 'POST',
+                    body: formData,
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                status.className = 'mb-4 p-3 rounded-lg text-xs bg-emerald-50 text-emerald-900';
+                status.innerHTML = `<i class="fa-solid fa-check mr-1"></i>入库成功！${data.chunks_count} 个 chunks`;
+                setTimeout(() => {
+                    document.getElementById('upload-modal').classList.add('hidden');
+                    document.getElementById('upload-form').reset();
+                    status.classList.add('hidden');
+                    loadDocs();
+                    loadStats();
+                }, 1500);
+            } catch (e) {
+                status.className = 'mb-4 p-3 rounded-lg text-xs bg-rose-50 text-rose-900';
+                status.innerHTML = `<i class="fa-solid fa-exclamation mr-1"></i>失败: ${e.message}`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-1.5"></i>上传并入库';
+            }
+        });
+
+        // 来源过滤
+        document.querySelectorAll('.source-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.source-filter').forEach(b => {
+                    b.classList.remove('bg-stone-900', 'text-white');
+                    b.classList.add('bg-white', 'border', 'border-stone-200', 'text-stone-700');
+                });
+                btn.classList.add('bg-stone-900', 'text-white');
+                btn.classList.remove('bg-white', 'border', 'border-stone-200', 'text-stone-700');
+                loadDocs(btn.dataset.source);
+            });
+        });
+
+        document.getElementById('search-btn').addEventListener('click', doSearch);
+        document.getElementById('do-search').addEventListener('click', doSearch);
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') doSearch();
+        });
+
+        function formatSize(bytes) {
+            if (!bytes) return '-';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+            return (bytes/1024/1024).toFixed(1) + ' MB';
+        }
+        function formatTime(iso) {
+            if (!iso) return '-';
+            const d = new Date(iso);
+            const now = new Date();
+            const diff = (now - d) / 1000;
+            if (diff < 60) return '刚刚';
+            if (diff < 3600) return Math.floor(diff/60) + ' 分钟前';
+            if (diff < 86400) return Math.floor(diff/3600) + ' 小时前';
+            return d.toLocaleDateString('zh-CN');
+        }
+        function escapeHtml(s) {
+            if (!s) return '';
+            return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+        }
+
+        // 文档预览
+        async function previewDoc(id) {
+            const modal = document.getElementById('preview-modal');
+            const titleEl = document.getElementById('preview-title');
+            const metaEl = document.getElementById('preview-meta');
+            const contentEl = document.getElementById('preview-content');
+            const footerEl = document.getElementById('preview-footer');
+
+            titleEl.textContent = '加载中...';
+            metaEl.textContent = '';
+            contentEl.textContent = '加载中...';
+            footerEl.textContent = '';
+            modal.classList.remove('hidden');
+
+            try {
+                const res = await fetch(`${API_BASE}/api/knowledge/documents/${id}?preview=true&preview_chars=1500`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                titleEl.textContent = data.name;
+                const meta = data.metadata || {};
+                const lawName = meta.law_name || data.name.replace(/\.md$|\.docx$|\.pdf$|\.txt$/i, '');
+                // Phase 2: 元数据 + 官方源链接
+                const sourceLink = data.source_url
+                    ? `<a href="${escapeHtml(data.source_url)}" target="_blank" rel="noopener" class="text-blue-600 hover:underline inline-flex items-center gap-1">
+                            <i class="fa-solid fa-external-link-alt text-[10px]"></i>${escapeHtml(data.source_url.length > 50 ? data.source_url.slice(0, 50) + '…' : data.source_url)}
+                        </a>`
+                    : '<span class="text-stone-400">无官方源</span>';
+                const versionInfo = data.law_status ? ` · 版本: <span class="text-amber-700">${escapeHtml(data.law_status)}</span>` : '';
+                const decreeInfo = data.decree ? ` · ${escapeHtml(data.decree)}` : '';
+                metaEl.innerHTML = `法律: <span class="text-stone-700 font-medium">${escapeHtml(lawName)}</span> · 来源: ${data.source} · 官方源: ${sourceLink}${versionInfo}${decreeInfo}`;
+
+                if (data.preview) {
+                    const p = data.preview;
+                    contentEl.textContent = p.text || '(无内容)';
+                    const truncatedHint = p.is_truncated
+                        ? `（已截断，共 ${p.total_chars.toLocaleString()} 字符，仅显示前 ${p.truncated_at} 字符）`
+                        : `（共 ${p.total_chars.toLocaleString()} 字符，已全部显示）`;
+                    footerEl.textContent = `${lawName} · ${p.total_chars.toLocaleString()} 字符${truncatedHint}`;
+                } else {
+                    contentEl.textContent = '(该文件无预览内容)';
+                    footerEl.textContent = lawName;
+                }
+            } catch (e) {
+                contentEl.textContent = `预览失败: ${e.message}`;
+                titleEl.textContent = '加载失败';
+            }
+        }
+
+        function closePreview() {
+            document.getElementById('preview-modal').classList.add('hidden');
+        }
+
+        // ESC 关闭预览
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePreview();
+        });
+
+        loadDocs();
+        loadStats();
+    </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业风险事项 — 金睛</title>
+    <link rel="stylesheet" href="../tailwind.min.css?v=20260828-ux-r6">
+    <link rel="stylesheet" href="../app.css?v=20260828-ux-r6">
+    <script>window.tailwind = window.tailwind || { config: {} };</script>
+    <script src="../auth.js?v=20260828-ux-r6"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#0c4a3e', 600: '#0a3d33', 700: '#083029' },
+              accent: { 500: '#d97706', 600: '#b45309' }
+            },
+            fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'] }
+          }
+        }
+      }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif; }
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="hidden md:flex w-60 bg-white border-r border-stone-200 flex-col">
+            <div class="h-16 px-6 flex items-center border-b border-stone-200">
+                <div>
+                    <div class="font-semibold text-stone-900">金睛 RiskLens</div>
+                    <div class="text-[10px] text-stone-500 tracking-wider">FINANCIAL RISK INTELLIGENCE</div>
+                </div>
+            </div>
+            <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
+                <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-house w-4 text-stone-400"></i>工作台</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-semibold tracking-[0.14em] text-stone-400">企业金融服务</div>
+                <a href="finance-precheck.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-list-check w-4 text-stone-400"></i>融资材料预审</a>
+                <a href="case-list.html" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-stone-100 text-stone-900 font-medium"><i class="fa-solid fa-briefcase w-4 text-stone-500"></i>企业风险事项</a>
+                <a href="case-analysis.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-wand-magic-sparkles w-4 text-stone-400"></i>金融合规问答</a>
+                <a href="case-search.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-magnifying-glass w-4 text-stone-400"></i>相似风险案例</a>
+                <a href="knowledge-base.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-book-open w-4 text-stone-400"></i>规则与企业资料库</a>
+                <a href="obsidian.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-feather w-4 text-stone-400"></i>企业资料同步</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-semibold tracking-[0.14em] text-stone-400">交易与合同管理</div>
+                <a href="contract-review.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-file-contract w-4 text-stone-400"></i>交易合同审查</a>
+                <a href="contract-workspace-preview.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-pen-to-square w-4 text-stone-400"></i>合同模板与起草</a>
+            </nav>
+            <div class="p-3 border-t border-stone-200">
+                <div class="flex items-center justify-between gap-2 px-2 py-2">
+                    <div class="min-w-0 truncate text-sm font-medium text-stone-900" data-user-display>已登录</div>
+                    <button type="button" data-auth-logout class="text-xs text-stone-500 hover:text-rose-600">退出</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="h-16 bg-white border-b border-stone-200 px-8 flex items-center gap-6">
+                <h1 class="text-lg font-semibold text-stone-900">企业风险事项</h1>
+                <div class="flex-1 max-w-md">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+                        <input type="text" placeholder="搜索企业风险事项..." class="w-full pl-10 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500">
+                    </div>
+                </div>
+                <a href="case-analysis.html" class="ml-2 inline-flex flex-col items-start px-4 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-lg hover:bg-stone-200" title="先生成可核验的金融合规分析，再自动归档为风险事项">
+                    <span><i class="fa-solid fa-wand-magic-sparkles text-xs mr-1"></i>合规问答创建</span><span class="text-[10px] font-normal text-stone-500">先研判，再归档</span>
+                </a>
+                <button id="new-empty-case-btn" class="ml-2 inline-flex flex-col items-start px-4 py-1.5 bg-brand-500 text-white text-sm font-medium rounded-lg hover:bg-brand-600">
+                    <span><i class="fa-solid fa-plus text-xs mr-1"></i>新建风险事项</span><span class="text-[10px] font-normal text-white/80">仅建草稿，不含分析</span>
+                </button>
+                <button id="refresh-btn" class="ml-1 inline-flex items-center gap-1 px-3 py-2 bg-white border border-stone-200 text-stone-700 text-sm rounded-lg hover:bg-stone-50" title="刷新列表">
+                    <i class="fa-solid fa-rotate text-xs"></i>
+                </button>
+            </header>
+
+            <div class="flex-1 overflow-y-auto scrollbar-thin">
+                <div class="max-w-7xl mx-auto px-8 py-6">
+                    <!-- 案件列表 -->
+                    <div class="bg-white border border-stone-200 rounded-xl" id="cases-container">
+                        <div class="px-6 py-8 text-center text-sm text-stone-500">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="new-case-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-stone-900/40 p-4" role="dialog" aria-modal="true" aria-labelledby="new-case-title">
+        <form id="new-case-form" class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h2 id="new-case-title" class="text-base font-semibold text-stone-900">新建风险事项</h2>
+                    <p class="mt-1 text-xs leading-relaxed text-stone-500">创建不含 AI 结论的风险事项草稿，后续可在金融合规问答中补充研判。</p>
+                </div>
+                <button id="cancel-new-case" type="button" class="text-stone-400 hover:text-stone-700" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <label for="new-case-name" class="mt-5 block text-xs font-medium text-stone-700">事项名称 <span class="text-stone-400">（可选）</span></label>
+            <input id="new-case-name" type="text" maxlength="120" class="mt-1.5 w-full rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20" placeholder="例如：甲公司软件开发合同纠纷">
+            <p id="new-case-error" class="mt-2 hidden text-xs text-rose-600" role="alert"></p>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" id="cancel-new-case-secondary" class="rounded-lg border border-stone-200 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50">取消</button>
+                <button id="submit-new-case" type="submit" class="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600">创建风险事项</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const pathPrefix = window.location.pathname.match(/^\/(risklens|legallens)\//);
+        const API_BASE = pathPrefix ? `/${pathPrefix[1]}` : "";
+        async function loadCases() {
+            try {
+                const res = await fetch(`${API_BASE}/api/cases`);
+                const cases = await res.json();
+                renderCases(cases);
+            } catch (e) {
+                document.getElementById('cases-container').innerHTML = '<div class="px-6 py-8 text-center text-rose-500 text-sm">加载失败，请确认服务已启动</div>';
+            }
+        }
+
+        function renderCases(cases) {
+            const container = document.getElementById('cases-container');
+            if (cases.length === 0) {
+                container.innerHTML = `
+                    <div class="px-6 py-16 text-center">
+                        <i class="fa-solid fa-briefcase text-4xl text-stone-300 mb-4"></i>
+                        <h3 class="text-base font-semibold text-stone-700 mb-2">还没有风险事项</h3>
+                        <p class="text-sm text-stone-500 mb-4">从金融合规问答开始创建一项研判记录</p>
+                        <a href="case-analysis.html" class="inline-block px-4 py-2 bg-brand-500 text-white text-sm rounded-lg hover:bg-brand-600">
+                            <i class="fa-solid fa-plus mr-1.5"></i>新建风险事项
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = `
+                <div class="px-6 py-4 border-b border-stone-200 flex items-center justify-between">
+                    <h2 class="font-semibold text-stone-900">全部风险事项</h2>
+                    <span class="text-xs text-stone-500">共 ${cases.length} 个</span>
+                </div>
+                <div class="overflow-x-auto scrollbar-thin">
+                <table class="min-w-[940px] w-full text-sm">
+                    <thead class="bg-stone-50 border-b border-stone-200 text-xs text-stone-500 uppercase tracking-wider">
+                        <tr>
+                            <th class="text-left px-6 py-3 font-medium min-w-[250px]">事项名称</th>
+                            <th class="text-left px-4 py-3 font-medium min-w-[170px]">案号</th>
+                            <th class="text-left px-4 py-3 font-medium min-w-[90px]">客户</th>
+                            <th class="text-left px-4 py-3 font-medium min-w-[100px]">案由</th>
+                            <th class="text-right px-4 py-3 font-medium min-w-[120px]">标的</th>
+                            <th class="text-left px-4 py-3 font-medium min-w-[80px]">状态</th>
+                            <th class="text-left px-4 py-3 font-medium min-w-[110px]">更新时间</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-100">
+                        ${cases.map(c => `
+                            <tr class="hover:bg-stone-50">
+                                <td class="px-6 py-3 max-w-[340px]">
+                                    <a title="${escapeHtml(c.title)}" href="case-analysis.html?case_id=${c.id}" class="block truncate text-stone-900 font-medium hover:text-brand-500">${escapeHtml(displayTitle(c.title))}</a>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-stone-500 font-mono text-xs">${escapeHtml(c.case_no || '-')}</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-stone-700">${escapeHtml(c.client || '-')}</td>
+                                <td class="px-4 py-3 whitespace-nowrap"><span class="text-[10px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded whitespace-nowrap">${escapeHtml(caseTypeLabel(c.case_type))}</span></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-stone-900 font-medium">${c.amount ? '¥' + c.amount.toLocaleString() : '-'}</td>
+                                <td class="px-4 py-3">${statusBadge(c.status)}</td>
+                                <td class="px-4 py-3 whitespace-nowrap text-stone-500 text-xs">${formatTime(c.updated_at)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table></div>
+            `;
+        }
+
+        function statusBadge(status) {
+            const map = {
+                'draft': ['草稿', 'bg-blue-50 text-blue-700'],
+                'processing': ['进行中', 'bg-amber-50 text-accent-600'],
+                'done': ['已完成', 'bg-emerald-50 text-emerald-700'],
+                'closed': ['已结案', 'bg-stone-100 text-stone-600'],
+            };
+            const [label, color] = map[status] || [status, 'bg-stone-100 text-stone-600'];
+            return `<span class="text-[10px] px-2 py-0.5 ${color} rounded whitespace-nowrap">${label}</span>`;
+        }
+
+        function caseTypeLabel(type) {
+            const labels = {
+                legal_analysis: '法律分析', civil_dispute: '民事纠纷', criminal: '刑事案件',
+                administrative: '行政案件', financial_loan: '金融借款纠纷', labor: '劳动争议',
+            };
+            return labels[type] || type || '-';
+        }
+
+        function displayTitle(title) {
+            return String(title || '-').replace(/\s*[·・]\s*\d{4}[/-]\d{1,2}[/-]\d{1,2}\s+\d{1,2}:\d{2}(?::\d{2})?\s*$/, '');
+        }
+
+        function formatTime(iso) {
+            if (!iso) return '-';
+            const d = new Date(iso);
+            return d.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function escapeHtml(s) {
+            if (!s) return '';
+            return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+        }
+
+        const newCaseModal = document.getElementById('new-case-modal');
+        const newCaseName = document.getElementById('new-case-name');
+        const newCaseError = document.getElementById('new-case-error');
+
+        function closeNewCaseModal() {
+            newCaseModal.classList.add('hidden');
+            newCaseModal.classList.remove('flex');
+            newCaseError.classList.add('hidden');
+            newCaseError.textContent = '';
+        }
+
+        document.getElementById('new-empty-case-btn').addEventListener('click', () => {
+            newCaseModal.classList.remove('hidden');
+            newCaseModal.classList.add('flex');
+            newCaseName.value = '';
+            newCaseName.focus();
+        });
+        document.getElementById('cancel-new-case').addEventListener('click', closeNewCaseModal);
+        document.getElementById('cancel-new-case-secondary').addEventListener('click', closeNewCaseModal);
+        newCaseModal.addEventListener('click', (event) => {
+            if (event.target === newCaseModal) closeNewCaseModal();
+        });
+
+        // 创建空案件
+        document.getElementById('new-case-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const finalTitle = newCaseName.value.trim() || `新案件 · ${new Date().toLocaleString('zh-CN', { hour12: false })}`;
+            const submitButton = document.getElementById('submit-new-case');
+            submitButton.disabled = true;
+            submitButton.textContent = '创建中...';
+
+            try {
+                const res = await fetch(`${API_BASE}/api/cases`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(localStorage.getItem('legallens_token') ? { 'Authorization': `Bearer ${localStorage.getItem('legallens_token')}` } : {}),
+                    },
+                    body: JSON.stringify({
+                        title: finalTitle,
+                        status: 'draft',
+                    }),
+                });
+                if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+                const saved = await res.json();
+                closeNewCaseModal();
+                loadCases();
+            } catch (e) {
+                newCaseError.textContent = '创建失败，请检查网络后重试。';
+                newCaseError.classList.remove('hidden');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = '创建风险事项';
+            }
+        });
+
+        // 刷新
+        document.getElementById('refresh-btn').addEventListener('click', () => {
+            loadCases();
+        });
+
+        loadCases();
+    </script>
+</body>
+</html>

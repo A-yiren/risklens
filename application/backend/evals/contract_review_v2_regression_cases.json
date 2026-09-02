@@ -1,0 +1,55 @@
+{
+  "dataset_name": "contract-review-v2-regressions",
+  "version": "1.0.0",
+  "notice": "这些是为已确认的解析边界新增的最小回归用例。它们独立于基线和公开示范文本衍生集，不能替代真实合同、法律意见或上线质量评估。",
+  "cases": [
+    {
+      "id": "labor-blank-term-does-not-use-probation",
+      "contract_type": "labor",
+      "text": "本合同期限由双方另行填写，其中试用期为3个月。",
+      "expected_rule_ids": []
+    },
+    {
+      "id": "labor-date-range-24-months-probation-3",
+      "contract_type": "labor",
+      "text": "本劳动合同自2026年1月1日起至2028年1月1日止，其中试用期为3个月。",
+      "expected_rule_ids": ["labor.probation_duration.exceeds_cap"]
+    },
+    {
+      "id": "lease-date-range-exactly-20-years",
+      "contract_type": "lease",
+      "text": "租赁期自2026年1月1日起至2046年1月1日止。",
+      "expected_rule_ids": []
+    },
+    {
+      "id": "lease-date-range-over-20-years-by-one-day",
+      "contract_type": "lease",
+      "text": "租赁期自2026年1月1日起至2046年1月2日止。",
+      "expected_rule_ids": ["lease.term.exceeds_20_years"]
+    },
+    {
+      "id": "labor-probation-wage-chinese-70-percent",
+      "contract_type": "labor",
+      "text": "试用期工资为劳动合同约定工资的百分之七十。",
+      "expected_rule_ids": ["labor.probation_wage.below_80_percent"]
+    },
+    {
+      "id": "earnest-money-chinese-30-percent",
+      "contract_type": "sale",
+      "text": "双方约定定金占主合同标的额的百分之三十。",
+      "expected_rule_ids": ["general.earnest_money.exceeds_20_percent"]
+    },
+    {
+      "id": "earnest-money-mixed-units-over-cap",
+      "contract_type": "sale",
+      "text": "合同总价为100万元，定金金额为300000元。",
+      "expected_rule_ids": ["general.earnest_money.exceeds_20_percent"]
+    },
+    {
+      "id": "earnest-money-mixed-units-at-cap",
+      "contract_type": "sale",
+      "text": "合同总价为100万元，定金金额为200000元。",
+      "expected_rule_ids": []
+    }
+  ]
+}

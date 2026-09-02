@@ -1,0 +1,31 @@
+flowchart TB
+    Step1["<b>🔍 Step 1 · RAG Retrieval</b><br/><br/>Embedding + Qdrant hybrid search top-20<br/>↓<br/>RRF Fusion + Rerank → Feed to LLM"]
+
+    Step2["<b>⚡ Step 2 · Parallel Execution</b><br/><br/>🤖 A1 Focus ID Agent — Identify legal relations / disputes<br/>🤖 A4 Risk Assessment Agent — Scan potential legal risks"]
+
+    Step3["<b>📝 Step 3 · Sequential Analysis</b><br/><br/>🤖 A2 Legal Analysis Agent<br/>Based on A1 focus + retrieved laws<br/>Output analysis with [n] citations"]
+
+    Step4["<b>🛡️ Step 4 · Citation Validation ⭐</b><br/><br/>🤖 A3 Citation Validation Agent<br/>Verify each [n] citation is genuinely in retrieved docs<br/>Tag 'hallucination' / 'verified'"]
+
+    Step5["<b>📦 Step 5 · Integration & Output</b><br/><br/>① Filter A3-tagged hallucination citations<br/>② Deduplicate by law + article<br/>③ Enrich metadata (official source / publisher / status)<br/>④ Renumber [1] [2] [3]<br/>⑤ Recompute confidence score"]
+
+    Input["📥 Case Input"]:::inputStyle
+    Output["📤 Final Output<br/>Each point linked to official source<br/>One-click jump to official law database"]:::outputStyle
+
+    Input ==> Step1
+    Step1 ==> Step2
+    Step2 ==> Step3
+    Step3 ==> Step4
+    Step4 ==> Step5
+    Step5 ==> Output
+
+    style Step1 fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#1c1917
+    style Step2 fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#1c1917
+    style Step3 fill:#dcfce7,stroke:#0c4a3e,stroke-width:3px,color:#0c4a3e
+    style Step4 fill:#fbbf24,stroke:#d97706,stroke-width:4px,color:#000
+    style Step5 fill:#dbeafe,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+    style Input fill:#f5f5f4,stroke:#0c4a3e,stroke-width:2px,color:#1c1917
+    style Output fill:#0c4a3e,stroke:#083029,stroke-width:3px,color:#fff
+
+    classDef inputStyle font-size:18px
+    classDef outputStyle font-size:18px
