@@ -1,6 +1,0 @@
-# RiskLens GOAI 复赛提交包（目录版）核心文件 SHA-256
-22a3fc393641027cc5d21abcff1c898a80c9a2f6b6905adc96a1e6cddbf4861a  01-更新版项目方案-PPT-PDF/RiskLens-答辩版-可信法律风险分析-截图清晰版.pptx
-152362c9574b4493a1edcd3d92554e7d450d2bfa95ccfc703b0b52f18015bd11  01-更新版项目方案-PPT-PDF/RiskLens-答辩版-可信法律风险分析-截图清晰版.pdf
-b3ad7e31fbd64dee52b2fb5aafe6089823ca640fd0cd0817076fa9b746b3c552  02-可运行Demo与演示视频/demo-final.mp4
-54425ce493d4b60b8fdbd1e3cbf0ba3ecd4ccb081689dbf3239121042c2ae792  02-可运行Demo与演示视频/demo.html
-4e8d9c7bf684a2dfe8b7eab2c580ba2de3625fab142e1d3616a672876ce840b5  README-评委快速开始.md
