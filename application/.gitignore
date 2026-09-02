@@ -64,6 +64,7 @@ pretrained_weights/
 # 应用数据模型是源码，不是模型权重
 !backend/app/models/
 !backend/app/models/**
+backend/app/models/__pycache__/
 
 # 临时日志
 *.log

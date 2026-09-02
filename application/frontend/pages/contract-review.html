@@ -3,26 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合同风险核验 — 金睛 RiskLens</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>交易合同审查｜金睛 RiskLens</title>
+    <link rel="stylesheet" href="../tailwind.min.css?v=20260903-r2">
+    <link rel="stylesheet" href="../app.css?v=20260903-r2">
     <script src="../auth.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#0c4a3e', 600: '#0a3d33', 700: '#083029' },
-              accent: { 500: '#d97706', 600: '#b45309' }
-            },
-            fontFamily: {
-              sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
-              serif: ['"Source Han Serif SC"', '"Songti SC"', 'SimSun', 'serif'],
-            }
-          }
-        }
-      }
-    </script>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif; }
         .legal-text { font-family: "Source Han Serif SC", "Songti SC", SimSun, serif; line-height: 1.9; }
@@ -47,20 +32,26 @@
                 </div>
                 <div>
                     <div class="font-semibold text-stone-900">金睛 RiskLens</div>
-                    <div class="text-[10px] text-stone-500 tracking-wider">个人合同风险核验</div>
+                    <div class="text-[10px] text-stone-500 tracking-wider">FINANCIAL RISK INTELLIGENCE</div>
                 </div>
             </div>
             <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
-                <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-house w-4 text-stone-400"></i>我的工作台</a>
-                <a href="contract-review.html" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-stone-100 text-stone-900 font-medium"><i class="fa-solid fa-file-contract w-4 text-stone-500"></i>合同风险核验<span class="ml-auto text-[9px] bg-accent-500 text-white px-1.5 py-0.5 rounded font-medium">演示</span></a>
-                <a href="knowledge-base.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-book-open w-4 text-stone-400"></i>我的材料</a>
+                <a href="../index.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-house w-4 text-stone-400"></i>工作台</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-semibold tracking-[0.14em] text-stone-400">企业金融服务</div>
+                <a href="finance-precheck.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-list-check w-4 text-stone-400"></i>融资材料预审</a>
+                <a href="case-list.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-briefcase w-4 text-stone-400"></i>企业风险事项</a>
+                <a href="case-analysis.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-wand-magic-sparkles w-4 text-stone-400"></i>金融合规问答</a>
+                <a href="knowledge-base.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-book-open w-4 text-stone-400"></i>规则与企业资料库</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-semibold tracking-[0.14em] text-stone-400">交易与合同管理</div>
+                <a href="contract-review.html" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-stone-100 text-stone-900 font-medium"><i class="fa-solid fa-file-contract w-4 text-brand-500"></i>交易合同审查</a>
+                <a href="contract-workspace-preview.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-stone-600 hover:bg-stone-50"><i class="fa-solid fa-pen-to-square w-4 text-stone-400"></i>合同模板与起草</a>
             </nav>
             <div class="p-3 border-t border-stone-200">
                 <div class="flex items-center gap-3 px-2 py-2">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-stone-700 to-stone-900 flex items-center justify-center text-white text-xs font-medium">演</div>
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-stone-700 to-stone-900 flex items-center justify-center text-white text-xs font-medium">R</div>
                     <div class="flex-1 min-w-0">
-                        <div class="text-sm font-medium text-stone-900">演示用户</div>
-                        <div class="text-[10px] text-stone-500">普通个人模式</div>
+                        <div class="text-sm font-medium text-stone-900">RiskLens Demo</div>
+                        <div class="text-[10px] text-stone-500">合同与企业资料分区管理</div>
                     </div>
                 </div>
             </div>
@@ -70,7 +61,7 @@
         <main class="flex-1 flex flex-col overflow-hidden">
             <header class="h-16 px-8 flex items-center justify-between border-b border-stone-200 bg-white">
                 <div>
-                    <h1 class="text-lg font-semibold text-stone-900">合同风险核验</h1>
+                    <h1 class="text-lg font-semibold text-stone-900">交易合同审查</h1>
                     <p class="text-xs text-stone-500 mt-0.5">定位合同原文与可核验依据，输出风险参考；不替代律师意见或最终法律结论</p>
                 </div>
             </header>
