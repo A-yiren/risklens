@@ -851,8 +851,8 @@ ul.list li::before {
 /* ============== Slide 11 竞品对比 ============== */
 .compete-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.9fr);
+  gap: 20px;
   flex: 1;
   min-height: 0;
   height: 100%;
@@ -861,11 +861,11 @@ ul.list li::before {
   background: var(--panel);
   border: 1px solid var(--rule);
   border-radius: 6px;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-.compete-table table { flex-shrink: 0; }
+.compete-table table { width: 100%; height: 100%; flex-shrink: 0; }
 .compete-table th {
   background: var(--green-d);
   color: var(--gold-l);
@@ -880,6 +880,51 @@ ul.list li::before {
   font-weight: 700;
 }
 .compete-table td.center { text-align: center; }
+.compete-side {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  min-height: 0;
+}
+.position-card {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 18px 15px;
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--green-d);
+  border-radius: 7px;
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.position-card.gold { border-left-color: var(--gold); background: linear-gradient(135deg, #FFFDF6, #F8F0D9); }
+.position-card .position-label {
+  color: var(--gold-d);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  margin-bottom: 8px;
+}
+.position-card h4 { margin: 0 0 7px; font-size: 21px; color: var(--ink); }
+.position-card p { margin: 0; color: var(--ink-2); font-size: 13px; line-height: 1.65; }
+.position-card .deliverable {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 11px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: var(--green-d);
+  background: #EDF5ED;
+  font-size: 11px;
+  font-weight: 700;
+}
+@media (max-width: 1000px) {
+  .compete-grid { grid-template-columns: 1fr; overflow-y: auto; }
+  .compete-table { min-height: 360px; }
+  .compete-side { grid-template-columns: repeat(3, minmax(220px, 1fr)); grid-template-rows: 1fr; }
+}
 .score-pill {
   display: inline-block;
   font-family: 'JetBrains Mono', monospace;
@@ -2311,45 +2356,26 @@ ul.list li::before {
           </tr>
         </table>
       </div>
-      <div class="radar-card legacy-metric-chart">
-        <h4>7 维雷达图对比</h4>
-        <div class="chart-svg-wrap" style="flex: 1;">
-          <svg viewBox="0 0 320 280" preserveAspectRatio="xMidYMid meet">
-            <!-- 5 圈网格 -->
-            <polygon points="160,30 285,135 245,255 75,255 35,135" fill="none" stroke="#E5DFC8" stroke-width="0.5"/>
-            <polygon points="160,70 252,138 222,232 98,232 68,138" fill="none" stroke="#E5DFC8" stroke-width="0.5"/>
-            <polygon points="160,110 222,142 200,210 120,210 98,142" fill="none" stroke="#E5DFC8" stroke-width="0.5"/>
-            <polygon points="160,150 192,148 178,188 142,188 128,148" fill="none" stroke="#E5DFC8" stroke-width="0.5"/>
-            <!-- 轴线 -->
-            <line x1="160" y1="155" x2="160" y2="20" stroke="#E5DFC8" stroke-width="0.5"/>
-            <line x1="160" y1="155" x2="290" y2="135" stroke="#E5DFC8" stroke-width="0.5"/>
-            <line x1="160" y1="155" x2="250" y2="260" stroke="#E5DFC8" stroke-width="0.5"/>
-            <line x1="160" y1="155" x2="70" y2="260" stroke="#E5DFC8" stroke-width="0.5"/>
-            <line x1="160" y1="155" x2="30" y2="135" stroke="#E5DFC8" stroke-width="0.5"/>
-            <!-- 豆包 (52): 响应 0.6, 费用 0.8, 引用 0.3, 判例 0.2, 隐私 0.4, 追溯 0.2, 7x24 0.8 -->
-            <polygon points="160,69 250,135 210,228 130,228 92,140" fill="#8A958A" fill-opacity="0.3" stroke="#8A958A" stroke-width="1.5"/>
-            <!-- 律师 (78): 响应 0.3, 费用 0.2, 引用 1.0, 判例 0.9, 隐私 1.0, 追溯 0.9, 7x24 0.2 -->
-            <polygon points="160,116 290,135 240,243 95,210 30,135" fill="#1B5E20" fill-opacity="0.2" stroke="#1B5E20" stroke-width="1.5"/>
-            <!-- 金睛 (94): 响应 1.0, 费用 1.0, 引用 1.0, 判例 0.9, 隐私 1.0, 追溯 0.9, 7x24 1.0 -->
-            <polygon points="160,20 290,135 240,243 95,243 30,135" fill="#B8860B" fill-opacity="0.4" stroke="#B8860B" stroke-width="2"/>
-            <!-- 7 个轴标签 -->
-            <text x="160" y="14" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">响应</text>
-            <text x="296" y="130" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">费用</text>
-            <text x="252" y="270" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">引用</text>
-            <text x="68" y="270" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">判例</text>
-            <text x="22" y="130" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">隐私</text>
-            <text x="74" y="178" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">追溯</text>
-            <text x="246" y="178" font-size="9" text-anchor="middle" fill="#4A5A4A" font-weight="700">7×24</text>
-            <!-- 中心点 -->
-            <circle cx="160" cy="155" r="3" fill="#8A958A"/>
-          </svg>
+      <aside class="compete-side" aria-label="各工具的适用边界">
+        <div class="position-card">
+          <div class="position-label">GENERAL AI</div>
+          <h4>用于信息理解与通用问答</h4>
+          <p>适合快速梳理非敏感背景信息；来源、引用与业务结论需要用户自行核验。</p>
+          <span class="deliverable">交付：初步理解</span>
         </div>
-        <div class="legend">
-          <span><span class="dot" style="background: #8A958A;"></span>豆包 52</span>
-          <span><span class="dot" style="background: #1B5E20;"></span>律师 78</span>
-          <span><span class="dot" style="background: #B8860B;"></span>金睛 94</span>
+        <div class="position-card">
+          <div class="position-label">PROFESSIONAL REVIEW</div>
+          <h4>用于专业判断与最终确认</h4>
+          <p>律师、合规人员或业务负责人根据完整事实、执业规范和职责范围作出专业意见。</p>
+          <span class="deliverable">交付：人工确认</span>
         </div>
-      </div>
+        <div class="position-card gold">
+          <div class="position-label">RISKLENS WORKFLOW</div>
+          <h4>用于融资材料预审与证据整理</h4>
+          <p>把材料检查、规则检索、来源片段、风险提示和待人工确认项串成可回看的辅助工作流。</p>
+          <span class="deliverable">交付：可溯源预审包</span>
+        </div>
+      </aside>
     </div>
   </section>
 
