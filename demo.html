@@ -28,7 +28,7 @@
 html, body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', Arial, sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   line-height: 1.5;
@@ -341,6 +341,7 @@ ul.list li::before {
   justify-content: center;
 }
 .chart-svg-wrap svg { width: 100%; height: 100%; max-height: 220px; }
+.legacy-metric-chart { display: none !important; }
 /* ============== Slide 1 封面 ============== */
 .cover {
   background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
@@ -775,7 +776,7 @@ ul.list li::before {
   flex-direction: column;
 }
 .stack-cat {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif;
   font-size: 10px;
   color: var(--gold-d);
   letter-spacing: 0.3em;
@@ -1217,6 +1218,35 @@ ul.list li::before {
 }
 .blind-detail .row:last-child { border-bottom: 0; }
 .blind-detail .row b { color: var(--gold-d); }
+.blind-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px 14px;
+  min-width: 0;
+}
+.blind-step {
+  min-width: 0;
+  background: linear-gradient(135deg, #E8F5E9 0%, #FAF7F0 100%);
+  border-left: 4px solid #1B5E20;
+  padding: 8px 10px;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+.blind-step.pending {
+  background: linear-gradient(135deg, #FFF8E0 0%, #FAF7F0 100%);
+  border-left-color: #B8860B;
+}
+.slide[data-slide="16"] h1.title {
+  font-size: clamp(30px, 3.45vw, 48px);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 900px) {
+  .blind-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .blind-score-card { padding: 14px; gap: 12px; }
+  .blind-score { font-size: 52px; }
+}
 /* ============== Slide 17 总结 ============== */
 .summary {
   background: linear-gradient(135deg, var(--green-d) 0%, #0F1A0F 100%);
@@ -1305,10 +1335,10 @@ ul.list li::before {
     <div class="cover-divider"></div>
     <div class="cover-tag">法律 AI Agent  ·  5 步可信推理  ·  4 Agent 协同 + 受控检索  ·  5 层检查</div>
     <div class="cover-metrics">
-      <div class="cover-metric"><div class="n">100+</div><div class="l">服务律所</div></div>
-      <div class="cover-metric"><div class="n">50万+</div><div class="l">法规 / 判例库</div></div>
-      <div class="cover-metric"><div class="n">99.2%</div><div class="l">引用准确率</div></div>
-      <div class="cover-metric"><div class="n">7×24</div><div class="l">秒级响应</div></div>
+      <div class="cover-metric"><div class="n">材料</div><div class="l">预审与字段核验</div></div>
+      <div class="cover-metric"><div class="n">证据</div><div class="l">来源与片段回链</div></div>
+      <div class="cover-metric"><div class="n">边界</div><div class="l">失败关闭与免责声明</div></div>
+      <div class="cover-metric"><div class="n">复核</div><div class="l">高风险人工交接</div></div>
     </div>
     <div class="cover-meta">
       <span>GOAI 2026 · AI + 法律</span>
@@ -1362,11 +1392,11 @@ ul.list li::before {
       <div class="toc-card" data-jump="13">
         <div class="toc-num">04  ·  USABILITY + ISSUES</div>
         <div class="toc-title">易用性 + 问题解决</div>
-        <div class="text-sm">点击即用模板 · 评委 2 建议 · 裁判文书网盲测 100 案</div>
+        <div class="text-sm">交互式演示 · 评委两项建议 · 公开案例盲测方法</div>
         <div class="toc-items">
-          <span class="pill gold">30 模板</span>
+          <span class="pill gold">合同模板</span>
           <span class="pill">2 评委建议</span>
-          <span class="pill green">100 案盲测</span>
+          <span class="pill green">盲测方法</span>
         </div>
       </div>
     </div>
@@ -1389,16 +1419,16 @@ ul.list li::before {
         <h3>普通用户快速法律咨询</h3>
         <div class="who">目标用户：租房/劳动/交通/借款纠纷当事人</div>
         <div class="pain">痛点：律师太贵、条文读不懂、不知去哪里问</div>
-        <div class="we">我们：自然语言提问 → 3 库联合检索 → 几秒拿到答案 + 引用</div>
+        <div class="we">我们：自然语言提问 → 受控检索 → 结构化参考 + 引用核验</div>
         <div class="data-row">
-          <div class="data-cell-mini"><div class="n">¥1</div><div class="l">/ 次成本</div></div>
-          <div class="data-cell-mini"><div class="n">5.2s</div><div class="l">响应</div></div>
-          <div class="data-cell-mini"><div class="n">72%</div><div class="l">7日留存</div></div>
+          <div class="data-cell-mini"><div class="n">输入</div><div class="l">问题与材料</div></div>
+          <div class="data-cell-mini"><div class="n">检索</div><div class="l">受控来源</div></div>
+          <div class="data-cell-mini"><div class="n">复核</div><div class="l">人工边界</div></div>
         </div>
         <div class="examples"><b>真实问题示例：</b>"租房押金不退" / "公司欠薪怎么办" / "交通事故赔偿计算" / "网络诈骗 5 万追回"</div>
         <!-- 6 类问题分布 mini 柱状图 -->
         <div class="mini-chart">
-          <div class="mini-chart-title">6 类问题咨询分布 · 12,400 次/月</div>
+        <div class="mini-chart-title">常见问题类别示例 · 非运营统计</div>
           <svg viewBox="0 0 360 90" preserveAspectRatio="xMidYMid meet" style="width:100%;height:90px;display:block;">
             <rect x="20"  y="15" width="40" height="65" fill="#1B5E20"/><text x="40"  y="11" font-size="7" text-anchor="middle" fill="#1B5E20" font-weight="700">28%</text>
             <rect x="70"  y="29" width="40" height="51" fill="#2E7D32"/><text x="90"  y="25" font-size="7" text-anchor="middle" fill="#1B5E20" font-weight="700">22%</text>
@@ -1519,10 +1549,10 @@ ul.list li::before {
           <tr><td><b>网络诈骗</b></td><td>被骗 5 万元如何追回</td></tr>
         </table>
         <div class="text-xs mt-3"><b style="color: var(--gold-d);">特点：</b>用户不懂法律术语、不知道哪个法管、不知找谁。金睛用<b>自然语言</b>接收,自动识别意图 + 调三库。</div>
-        <div class="text-xs mt-2"><b style="color: var(--green-d);">增长：</b>30 天新增 12,400 用户,周留存 <b style="color: var(--gold-d);">72%</b></div>
+        <div class="text-xs mt-2"><b style="color: var(--green-d);">说明：</b>本页仅展示常见问题类型，不展示用户规模、增长或留存数据。</div>
         <!-- 6 类问题咨询分布 柱状图 -->
         <div class="chart-card mt-3" style="flex: 1;">
-          <h4>6 类问题咨询分布  ·  30 天 12,400 次</h4>
+          <h4>6 类常见问题示意 · 不代表运营分布</h4>
           <div class="chart-svg-wrap">
             <svg viewBox="0 0 360 120" preserveAspectRatio="xMidYMid meet">
               <line x1="40" y1="100" x2="350" y2="100" stroke="#2E7D32" stroke-width="1"/>
@@ -1573,40 +1603,27 @@ ul.list li::before {
         </div>
       </div>
       <div class="scene-panel green">
-        <div class="ph">// RESULT</div>
-        <h4>结果 · 4 数据 + 3 证言</h4>
+        <div class="ph">// VERIFIABLE DELIVERY</div>
+        <h4>结果交付 · 只展示可核验项</h4>
         <div class="data-grid" style="grid-template-columns: 1fr 1fr; gap: 8px;">
-          <div class="data-cell" style="padding: 8px;"><div class="data-num" style="font-size: 22px;">5.2s</div><div class="data-label">响应时间</div></div>
-          <div class="data-cell" style="padding: 8px;"><div class="data-num gold" style="font-size: 22px;">¥1</div><div class="data-label">单次成本</div></div>
-          <div class="data-cell" style="padding: 8px;"><div class="data-num" style="font-size: 22px;">99.2%</div><div class="data-label">引用准确</div></div>
-          <div class="data-cell" style="padding: 8px;"><div class="data-num gold" style="font-size: 22px;">3 库</div><div class="data-label">联合检索</div></div>
+          <div class="data-cell" style="padding: 8px;"><div class="data-num" style="font-size: 16px;">缺失项</div><div class="data-label">材料清单可追溯</div></div>
+          <div class="data-cell" style="padding: 8px;"><div class="data-num gold" style="font-size: 16px;">一致性</div><div class="data-label">跨材料字段核验</div></div>
+          <div class="data-cell" style="padding: 8px;"><div class="data-num" style="font-size: 16px;">证据</div><div class="data-label">来源与片段可回链</div></div>
+          <div class="data-cell" style="padding: 8px;"><div class="data-num gold" style="font-size: 16px;">复核</div><div class="data-label">异常进入人工交接</div></div>
         </div>
         <div class="text-xs mt-3" style="line-height: 1.55;">
-          <div style="padding: 5px 0; border-bottom: 1px dashed var(--rule);"><b style="color: var(--green-d);">王女士 / 北京：</b>"用金睛查了租房纠纷，3 个工作日自己协商解决了,省了 3000 元律师费"</div>
-          <div style="padding: 5px 0; border-bottom: 1px dashed var(--rule);"><b style="color: var(--green-d);">陈先生 / 上海：</b>"劳动仲裁前用金睛梳理了证据链,庭审一次过"</div>
-          <div style="padding: 5px 0;"><b style="color: var(--green-d);">李同学 / 大三：</b>"实习合同不放心,10 分钟查清了所有条款"</div>
+          <div style="padding: 5px 0; border-bottom: 1px dashed var(--rule);"><b style="color: var(--green-d);">边界：</b>输出为风险参考，不替代律师、金融机构或主管部门的最终判断。</div>
+          <div style="padding: 5px 0; border-bottom: 1px dashed var(--rule);"><b style="color: var(--green-d);">溯源：</b>每条输出应关联检索来源、证据片段与引用校验状态。</div>
+          <div style="padding: 5px 0;"><b style="color: var(--green-d);">异常：</b>证据不足、规则冲突或高风险事项标记为 <code>needs_human_review</code>。</div>
         </div>
-        <!-- 用户增长曲线 -->
+        <!-- 验收范围，不展示未经验证的运营数据 -->
         <div class="chart-card mt-3" style="flex: 1;">
-          <h4>用户增长曲线 · 7 天 · 1.2K → 2.4K</h4>
-          <div class="chart-svg-wrap">
-            <svg viewBox="0 0 360 120" preserveAspectRatio="xMidYMid meet">
-              <line x1="30" y1="100" x2="350" y2="100" stroke="#2E7D32" stroke-width="1"/>
-              <line x1="30" y1="20" x2="350" y2="20" stroke="#E5DFC8" stroke-width="0.5"/>
-              <line x1="30" y1="60" x2="350" y2="60" stroke="#E5DFC8" stroke-width="0.5"/>
-              <text x="28" y="24" font-size="8" text-anchor="end" fill="#8A958A">2.4K</text>
-              <text x="28" y="64" font-size="8" text-anchor="end" fill="#8A958A">1.8K</text>
-              <text x="28" y="104" font-size="8" text-anchor="end" fill="#8A958A">1.2K</text>
-              <polyline points="30,92 80,80 130,68 180,55 230,40 280,30 350,20" fill="none" stroke="#B8860B" stroke-width="2.5"/>
-              <circle cx="30" cy="92" r="3" fill="#B8860B"/><text x="30" y="115" font-size="8" text-anchor="middle" fill="#8A958A">D1</text>
-              <circle cx="80" cy="80" r="3" fill="#B8860B"/><text x="80" y="115" font-size="8" text-anchor="middle" fill="#8A958A">D2</text>
-              <circle cx="130" cy="68" r="3" fill="#B8860B"/><text x="130" y="115" font-size="8" text-anchor="middle" fill="#8A958A">D3</text>
-              <circle cx="180" cy="55" r="3" fill="#B8860B"/><text x="180" y="115" font-size="8" text-anchor="middle" fill="#8A958A">D4</text>
-              <circle cx="230" cy="40" r="3" fill="#B8860B"/><text x="230" y="115" font-size="8" text-anchor="middle" fill="#8A958A">D5</text>
-              <circle cx="280" cy="30" r="3" fill="#B8860B"/><text x="280" y="115" font-size="8" text-anchor="middle" fill="#8A958A">D6</text>
-              <circle cx="350" cy="20" r="4" fill="#1B5E20"/><text x="350" y="115" font-size="8" text-anchor="middle" fill="#1B5E20" font-weight="700">D7</text>
-              <text x="350" y="14" font-size="9" text-anchor="end" fill="#1B5E20" font-weight="700">2.4K</text>
-            </svg>
+          <h4>验收证据清单 · 不展示用户增长或用户评价</h4>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; padding-top:4px;">
+            <div class="card" style="padding:8px 10px;"><b class="text-green">01 · 输入</b><div class="text-xs">材料与问题的授权范围可见</div></div>
+            <div class="card" style="padding:8px 10px;"><b class="text-gold">02 · 工具</b><div class="text-xs">解析、规则与检索调用留痕</div></div>
+            <div class="card" style="padding:8px 10px;"><b class="text-green">03 · 结果</b><div class="text-xs">缺失项、风险项、来源片段</div></div>
+            <div class="card" style="padding:8px 10px;"><b class="text-gold">04 · 交接</b><div class="text-xs">高风险事项进入人工复核</div></div>
           </div>
         </div>
       </div>
@@ -1630,12 +1647,12 @@ ul.list li::before {
         <h4>三库：法规 + 案件 + 知识</h4>
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <div class="card green" style="padding: 8px 10px;">
-            <div class="text-xs"><b style="color: var(--green-d);">法规库  ·  50 万+ 条</b></div>
-            <div class="text-xs">民法典 / 刑法 / 行政法 / 司法解释 / 部门规章 / 地方性法规 — 6 大类</div>
+            <div class="text-xs"><b style="color: var(--green-d);">法规参考  ·  受控来源</b></div>
+            <div class="text-xs">以官方来源、有效性字段与片段定位为准，具体覆盖范围以入库状态为准</div>
           </div>
           <div class="card gold" style="padding: 8px 10px;">
-            <div class="text-xs"><b style="color: var(--gold-d);">案件库  ·  1200 万+ 判例</b></div>
-            <div class="text-xs">最高人民法院 / 各级地方法院 / 裁判文书网 — 1990 至今</div>
+            <div class="text-xs"><b style="color: var(--gold-d);">案例材料  ·  示例与公开来源</b></div>
+            <div class="text-xs">用于相似材料检索与工作流演示；来源、授权与适用范围单独记录</div>
           </div>
           <div class="card dark" style="padding: 8px 10px;">
             <div class="text-xs"><b style="color: var(--green-d);">律所知识库</b></div>
@@ -1878,7 +1895,7 @@ ul.list li::before {
           <div class="agent-name">受控检索<small>Controlled Retrieval  ·  步骤 0</small></div>
         </div>
         <div class="agent-flow"><b>输入：</b>用户自然语言 / 上传文件<br><b>输出：</b>受控来源切片 (法规 / 判例 / 知识库)</div>
-        <div class="agent-check"><span class="pill green">50 万+ 法规</span><span class="pill">1200 万 判例</span><span class="pill">律所知识库</span></div>
+        <div class="agent-check"><span class="pill green">法规参考</span><span class="pill">案例材料</span><span class="pill">私有知识库</span></div>
       </div>
       <div class="agent-row">
         <div class="agent-num">A1</div>
@@ -1961,8 +1978,8 @@ ul.list li::before {
 
           <!-- 顶部数据源 -->
           <rect x="20"   y="5" width="1160" height="22" rx="3" fill="#F2EBD7" stroke="#E5DFC8"/>
-          <text x="50"   y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 50 万+ 法规</text>
-          <text x="220"  y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 1200 万+ 判例</text>
+          <text x="50"   y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 受控法规参考</text>
+          <text x="220"  y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 示例案例材料</text>
           <text x="400"  y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 律所知识库</text>
           <text x="560"  y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 30 模板 + 6 工具</text>
           <text x="760"  y="20" font-size="10" fill="#4A5A4A" font-weight="700">▸ 用户账号数据</text>
@@ -1999,8 +2016,8 @@ ul.list li::before {
       </div>
       <div class="why-card good">
         <h3>✓ Agent 协同 + 多层检查  ·  5 大优势</h3>
-        <div class="why-row"><span><b>幻觉率</b>  ·  无引用 = 不输出</span><span class="why-num">&lt; 5%</span></div>
-        <div class="why-row"><span><b>引用可回链</b>  ·  每条对应原文 + URL + 摘录</span><span class="why-num">99.5%</span></div>
+        <div class="why-row"><span><b>失败关闭</b>  ·  无引用或校验异常不作为有效依据输出</span><span class="why-num">规则</span></div>
+        <div class="why-row"><span><b>引用可回链</b>  ·  每条对应原文、URL 与摘录</span><span class="why-num">证据</span></div>
         <div class="why-row"><span><b>三库联合</b>  ·  BM25 + 向量 + 知识库混合</span><span class="why-num">3 库</span></div>
         <div class="why-row"><span><b>审计可追溯</b>  ·  每步可重跑 / 可解释</span><span class="why-num">5 步</span></div>
         <div class="why-row"><span><b>法规更新</b>  ·  只换数据库 (小时级)</span><span class="why-num">快</span></div>
@@ -2097,9 +2114,9 @@ ul.list li::before {
       </div>
       <div class="stack-card">
         <div class="stack-cat">LLM  ·  大模型</div>
-        <div class="stack-name">MiniMax  ·  多模型路由</div>
-        <div class="stack-meta"><b>主：</b>MiniMax abab-6.5s-chat<br><b>备：</b>GLM-5 / Qwen3 / DeepSeek-V3<br><b>理由：</b>按任务路由,降本 40%</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 3px;"><span class="pill gold">abab-6.5s</span><span class="pill">GLM-5</span><span class="pill">Qwen3</span></div>
+        <div class="stack-name">文本模型服务 · 可配置接口</div>
+        <div class="stack-meta"><b>当前部署：</b>MiniMax-M3<br><b>接口：</b>OpenAI 兼容服务，由环境配置指定<br><b>控制：</b>输出需经检索、引用校验与人工边界检查</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 3px;"><span class="pill gold">MiniMax-M3</span><span class="pill">OpenAI Compatible</span><span class="pill">Citation Check</span></div>
       </div>
     </div>
     <!-- 技术栈 6 维评分 -->
@@ -2231,9 +2248,9 @@ ul.list li::before {
       <span class="num">11 / 17</span>
     </div>
     <div class="title-block">
-      <div class="eyebrow">03  ·  COMPETITION  ·  4 列对比 + 7 维量化评分</div>
-      <h1 class="title">通用 AI  /  律师  /  检索软件  vs  金睛 RiskLens</h1>
-      <div class="subtitle">豆包 / Kimi / 文心 vs 真实律师 vs 法律检索软件 vs 金睛 — 7 维 + 雷达图</div>
+      <div class="eyebrow">03  ·  POSITIONING  ·  能力边界对照</div>
+      <h1 class="title">通用 AI  /  专业人员  /  检索工具  与 RiskLens 的分工</h1>
+      <div class="subtitle">不做效果排名；仅说明不同工具在来源、复核、隐私与交接上的工作边界</div>
     </div>
     <div class="compete-grid">
       <div class="compete-table">
@@ -2246,55 +2263,55 @@ ul.list li::before {
           </tr>
           <tr>
             <td><b>响应时间</b></td>
-            <td>秒级, 但常答非所问</td>
-            <td>天级, 需预约 ¥500-3000/小时</td>
-            <td class="ours">秒级 + 精准 + 免费</td>
+            <td>以具体产品、网络和任务为准</td>
+            <td>以专业机构流程与服务安排为准</td>
+            <td class="ours">材料预审工作流，不承诺时效或结论</td>
           </tr>
           <tr>
             <td><b>费用</b></td>
-            <td>免费/低, 但有幻觉</td>
-            <td>¥500-3000 / 小时</td>
-            <td class="ours">免费/低, 且 0 幻觉</td>
+            <td>由具体产品与服务政策决定</td>
+            <td>由专业服务约定决定</td>
+            <td class="ours">不以费用或模型输出替代专业判断</td>
           </tr>
           <tr>
             <td><b>法规引用</b></td>
-            <td>常编造法条编号</td>
-            <td>≥99.5% 准确, 但人脑记忆</td>
-            <td class="ours">≥99.5% 准确 + 自动回链原文</td>
+            <td>是否提供来源取决于具体产品</td>
+            <td>由专业人员核验与引用</td>
+            <td class="ours">展示来源片段与引用校验状态</td>
           </tr>
           <tr>
             <td><b>判例库</b></td>
-            <td>无 / 弱</td>
-            <td>个人记忆, 不全</td>
-            <td class="ours">三库联合 (1200 万判例)</td>
+            <td>覆盖范围取决于具体产品</td>
+            <td>依赖专业资料与办案经验</td>
+            <td class="ours">受控法规、案例与私有知识材料隔离检索</td>
           </tr>
           <tr>
             <td><b>隐私</b></td>
-            <td>用你的数据训练</td>
-            <td>律师楼保密</td>
-            <td class="ours">账号隔离 + 不训练</td>
+            <td>以服务条款和账户设置为准</td>
+            <td>以执业规则与服务约定为准</td>
+            <td class="ours">租户隔离、上传校验与授权材料边界</td>
           </tr>
           <tr>
             <td><b>可追溯</b></td>
-            <td>无法追溯</td>
-            <td>靠人脑回忆</td>
-            <td class="ours">5 Agent 审计 + 5 层检查</td>
+            <td>取决于产品是否保留来源和日志</td>
+            <td>依赖工作底稿与专业记录</td>
+            <td class="ours">保留规则、检索、证据与人工交接信息</td>
           </tr>
           <tr>
             <td><b>7×24 可用</b></td>
-            <td>✓ 但有幻觉</td>
-            <td>✗</td>
-            <td class="ours">✓ + 0 幻觉 + 不贵</td>
+            <td>以具体服务可用性为准</td>
+            <td>以服务安排为准</td>
+            <td class="ours">用于辅助流程，不替代专业服务</td>
           </tr>
           <tr style="background: var(--bg-2);">
-            <td><b>综合评分</b></td>
-            <td class="center"><span class="score-pill l">52 / 100</span></td>
-            <td class="center"><span class="score-pill m">78 / 100</span></td>
-            <td class="center ours"><span class="score-pill h">94 / 100</span></td>
+            <td><b>适用定位</b></td>
+            <td class="center"><span class="score-pill l">通用问答</span></td>
+            <td class="center"><span class="score-pill m">专业判断</span></td>
+            <td class="center ours"><span class="score-pill h">预审与溯源</span></td>
           </tr>
         </table>
       </div>
-      <div class="radar-card">
+      <div class="radar-card legacy-metric-chart">
         <h4>7 维雷达图对比</h4>
         <div class="chart-svg-wrap" style="flex: 1;">
           <svg viewBox="0 0 320 280" preserveAspectRatio="xMidYMid meet">
@@ -2353,15 +2370,15 @@ ul.list li::before {
         <span class="adv-post">,而是</span>
         <span class="adv-pos xl gold">带法条引用</span>
         <span class="adv-pre">的</span>
-        <span class="adv-pos xl">精准答案</span>
+        <span class="adv-pos xl">可核验参考</span>
       </div>
       <div class="adv-row">
         <span class="adv-pre">不是</span>
         <span class="adv-neg">"可能正确"</span>
         <span class="adv-post">,而是</span>
-        <span class="adv-pos l">0 幻觉</span>
+        <span class="adv-pos l">引用校验</span>
         <span class="adv-pre">+</span>
-        <span class="adv-pos l gold">99.5% 可回链</span>
+        <span class="adv-pos l gold">来源可回链</span>
         <span class="adv-pre">+</span>
         <span class="adv-pos l">可审计</span>
       </div>
@@ -2369,9 +2386,8 @@ ul.list li::before {
         <span class="adv-pre">不是</span>
         <span class="adv-neg">替代律师</span>
         <span class="adv-post">,而是</span>
-        <span class="adv-pos l gold">让每个普通人</span>
-        <span class="adv-pos l">都用得起专业法律研究</span>
-        <span class="adv-num">¥1 vs ¥3000</span>
+        <span class="adv-pos l gold">让业务人员</span>
+        <span class="adv-pos l">更快完成材料预审与证据整理</span>
       </div>
       <div class="adv-row">
         <span class="adv-pre">不是</span>
@@ -2387,7 +2403,7 @@ ul.list li::before {
         <span class="adv-post">,而是</span>
         <span class="adv-pos l">5 Agent 协同 + 5 层检查</span>
         <span class="adv-pre">,</span>
-        <span class="adv-pos l gold">让精准成为可能</span>
+        <span class="adv-pos l gold">让复核更有依据</span>
       </div>
       <div class="adv-row">
         <span class="adv-pre">不是</span>
@@ -2418,7 +2434,7 @@ ul.list li::before {
         <h3 style="color: var(--green-d); margin-top: 14px;">解决:点击即用 · 案例 + 模板</h3>
         <p>工作台首页直接放 <b>「准备好的案例」</b> 和 <b>「标准模板」</b>。点一下就进,看完就知道功能怎么用。直观、零学习成本。</p>
         <div class="text-xs mt-3"><b style="color: var(--gold-d);">设计原则：</b>① 第一次登录 → 看到 6 个推荐案例 → ② 点一个 → 看完流程 → ③ 知道"哦原来这个能这样用" → ④ 进一步探索</div>
-        <div class="text-xs mt-2"><b style="color: var(--green-d);">结果：</b>7 天留存率 35% → <b style="color: var(--gold-d);">72%</b>（+106%）</div>
+        <div class="text-xs mt-2"><b style="color: var(--green-d);">验收：</b>通过首次任务完成率、来源可见性和人工复核可达性进行可用性测试。</div>
         <!-- 工作台 mock 加到左侧填充 -->
         <div class="mock mt-3" style="flex: 1; min-height: 0;">
           <div class="mock-bar">
@@ -2470,11 +2486,11 @@ ul.list li::before {
           <span class="pill green">💬 AI 问答</span>
           <span class="pill green">📚 知识库</span>
         </div>
-        <div class="text-xs mt-3"><b style="color: var(--green-d);">0 学习成本：</b>用户<b>第一次登录 3 分钟</b>内完成首次有效咨询</div>
+        <div class="text-xs mt-3"><b style="color: var(--green-d);">低门槛交互：</b>以预置示例和模板帮助用户理解可执行任务，不承诺学习或完成时长。</div>
       </div>
     </div>
     <!-- 留存率提升折线图 -->
-    <div class="chart-card mt-3" style="flex: 0 0 auto; height: 200px;">
+    <div class="chart-card mt-3 legacy-metric-chart" style="flex: 0 0 auto; height: 200px;">
       <h4>7 日留存率提升  ·  v0.1 35% → v0.2 72% (设计点击即用后)</h4>
       <div class="chart-svg-wrap">
         <svg viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid meet" style="width:100%;height:160px;">
@@ -2559,15 +2575,15 @@ ul.list li::before {
         <!-- 量化效果 -->
         <table class="mt-3">
           <tr><th>指标</th><th>v0.1</th><th>v0.2</th></tr>
-          <tr><td>免责声明显示率</td><td>0%</td><td class="text-green"><b>99.9%</b></td></tr>
-          <tr><td>敏感场景升级</td><td>无</td><td class="text-green"><b>12 类</b></td></tr>
-          <tr><td>合规文档</td><td>1 份</td><td class="text-green"><b>6 份</b></td></tr>
-          <tr><td>引用回链</td><td>无</td><td class="text-green"><b>99.5%</b></td></tr>
+          <tr><td>免责声明</td><td>待补齐</td><td class="text-green"><b>已纳入输出边界</b></td></tr>
+          <tr><td>敏感场景升级</td><td>待定义</td><td class="text-green"><b>已建立人工复核规则</b></td></tr>
+          <tr><td>合规文档</td><td>分散</td><td class="text-green"><b>已集中归档</b></td></tr>
+          <tr><td>引用回链</td><td>无统一口径</td><td class="text-green"><b>已纳入校验链路</b></td></tr>
         </table>
       </div>
     </div>
     <!-- 4 指标 v0.1 → v0.2 提升图 -->
-    <div class="chart-card mt-3" style="flex: 0 0 auto; height: 200px;">
+    <div class="chart-card mt-3 legacy-metric-chart" style="flex: 0 0 auto; height: 200px;">
       <h4>4 关键指标 v0.1 → v0.2 提升  ·  产品边界 + 合规 + 引用</h4>
       <div class="chart-svg-wrap">
         <svg viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid meet" style="width:100%;height:160px;">
@@ -2616,8 +2632,8 @@ ul.list li::before {
     </div>
     <div class="title-block">
       <div class="eyebrow">JUDGE FEEDBACK  ·  2 / 2</div>
-      <h1 class="title">评委建议 2  ·  "聚焦高频任务 + 量化对比"</h1>
-      <div class="subtitle">评委原话 + 5 个解决方案 + 4 件套量化对比 + 改进数据</div>
+      <h1 class="title">评委建议 2  ·  聚焦高频任务与可复核评测</h1>
+      <div class="subtitle">场景收敛、评测预注册、人工对照与指标发布边界</div>
     </div>
     <div class="judge-grid">
       <div class="judge-quote-card">
@@ -2628,33 +2644,33 @@ ul.list li::before {
       <div class="judge-fix-card">
         <h4>// 我们的解决方案  ·  5 个具体措施</h4>
         <ol>
-          <li><b>聚焦 3 大高频任务</b>  ·  法律咨询 / 法规检索 / 合同审查（不是 10 个分散场景）</li>
-          <li><b>4 件套量化对比</b>  ·  传统关键词 / 通用大模型（豆包级） / RiskLens / 真实执业律师</li>
-          <li><b>受控基准 0.2 版</b>  ·  30 真实咨询场景 + 50 法规查询场景 + 20 合同审查场景</li>
-          <li><b>口径约束</b>  ·  所有高精度指标都标注"受控基准 / 30 场景 / 50 查询"等边界</li>
-          <li><b>复赛方案 v0.2</b>  ·  从泛法律 → 单场景高频任务 · 4 件套对照 + 信贷审批聚焦</li>
+          <li><b>聚焦融资材料预审</b>  ·  材料缺失、事实一致性、法规参考与人工交接</li>
+          <li><b>设置对照组</b>  ·  人工复核、固定检索/RAG 与 RiskLens 使用同一冻结样本</li>
+          <li><b>预注册评测</b>  ·  在运行前锁定样本、标准答案、指标和评分规则</li>
+          <li><b>口径约束</b>  ·  仅发布可追溯、已复核的指标，不外推到真实决策结果</li>
+          <li><b>复赛方案 v0.2</b>  ·  从泛场景展示收敛至一条可验证任务链路</li>
         </ol>
       </div>
       <div class="judge-data-card">
-        <h4>// 4 件套量化对比  ·  30 真实咨询场景</h4>
+        <h4>// 对照评测状态  ·  仅展示已定义的口径</h4>
         <table>
-          <tr><th>方案</th><th>精度</th><th>引用</th><th>耗时</th><th>成本</th></tr>
-          <tr><td>传统关键词</td><td>62%</td><td>无</td><td>5s</td><td>免费</td></tr>
-          <tr><td>豆包 / Kimi</td><td>71%</td><td>30%</td><td>3s</td><td>免费</td></tr>
-          <tr style="background: rgba(184, 134, 11, 0.12);"><td><b>金睛 RiskLens</b></td><td><b style="color: var(--green-d);">94%</b></td><td><b style="color: var(--green-d);">99.5%</b></td><td><b>5.2s</b></td><td><b>¥1</b></td></tr>
-          <tr><td>真实律师</td><td>95%</td><td>≥99.5%</td><td>2 天</td><td>¥3000</td></tr>
+          <tr><th>方案</th><th>样本</th><th>引用</th><th>风险</th><th>状态</th></tr>
+          <tr><td>固定检索 / RAG</td><td>同一冻结集</td><td>来源记录</td><td>统一规则</td><td>待复核</td></tr>
+          <tr><td>通用模型基线</td><td>同一冻结集</td><td>单独记录</td><td>统一规则</td><td>待复核</td></tr>
+          <tr style="background: rgba(184, 134, 11, 0.12);"><td><b>金睛 RiskLens</b></td><td><b>同一冻结集</b></td><td><b style="color: var(--green-d);">校验链路</b></td><td><b>统一规则</b></td><td><b>待复核</b></td></tr>
+          <tr><td>人工专家</td><td>独立标注</td><td>标准答案</td><td>分歧裁决</td><td>待复核</td></tr>
         </table>
         <table class="mt-3">
-          <tr><th>指标</th><th>v0.1</th><th>v0.2</th></tr>
-          <tr><td>受控基准场景</td><td>3</td><td class="text-green"><b>30</b></td></tr>
-          <tr><td>法规查询场景</td><td>3</td><td class="text-green"><b>50</b></td></tr>
-          <tr><td>合同审查场景</td><td>无</td><td class="text-green"><b>20</b></td></tr>
-          <tr><td>精度 (受控)</td><td>85%</td><td class="text-green"><b>94%</b></td></tr>
+          <tr><th>指标</th><th>口径</th><th>发布条件</th></tr>
+          <tr><td>法规召回</td><td>冻结查询集</td><td class="text-green"><b>独立复核后发布</b></td></tr>
+          <tr><td>错误引用</td><td>来源与片段一致性</td><td class="text-green"><b>独立复核后发布</b></td></tr>
+          <tr><td>重大风险漏检</td><td>人工金标准</td><td class="text-green"><b>独立复核后发布</b></td></tr>
+          <tr><td>结果交付</td><td>证据与人工交接</td><td class="text-green"><b>全过程留痕</b></td></tr>
         </table>
       </div>
     </div>
     <!-- 4 件套精度可视化 -->
-    <div class="chart-card mt-3" style="flex: 0 0 auto; height: 200px;">
+    <div class="chart-card mt-3 legacy-metric-chart" style="flex: 0 0 auto; height: 200px;">
       <h4>4 件套精度可视化  ·  30 真实咨询场景  ·  耗时  ·  成本  ·  引用 4 维</h4>
       <div class="chart-svg-wrap">
         <svg viewBox="0 0 1200 160" preserveAspectRatio="xMidYMid meet" style="width:100%;height:160px;">
@@ -2704,31 +2720,31 @@ ul.list li::before {
       <span class="num">16 / 17</span>
     </div>
     <div class="title-block">
-      <div class="eyebrow">BLIND TEST  ·  5 步预注册 / 不展示未做出来的能力指标</div>
-      <h1 class="title">裁判文书网盲测  ·  先把规则锁定, 再讨论结果</h1>
-      <div class="subtitle">样本冻结 → 标准答案 → 三组对照 → 统一评分 → 复核发布 — 内测结果待复核</div>
+      <div class="eyebrow">BLIND TEST  ·  5 步预注册 / 不展示未复核的结果指标</div>
+      <h1 class="title">公开案例盲测  ·  规则先锁定，再讨论结果</h1>
+      <div class="subtitle">样本冻结 → 标准答案 → 三组对照 → 统一评分 → 复核发布 — 当前展示方法与状态</div>
     </div>
     <!-- 5 步预注册流程 (PPT 风格 5 卡片) -->
     <div class="chart-card" style="flex: 0 0 auto; height: 130px; margin-bottom: 8px;">
-      <h4>5 步预注册流程  ·  当前状态: 步骤 1-2 已完成  ·  步骤 3-5 待执行</h4>
-      <div style="display: flex; gap: 8px; padding: 8px 14px;">
-        <div style="flex: 1; background: linear-gradient(135deg, #E8F5E9 0%, #FAF7F0 100%); border-left: 4px solid #1B5E20; padding: 8px 10px; border-radius: 4px;">
+      <h4>5 步预注册流程  ·  当前展示：方法已固化，正式评测待独立复核</h4>
+      <div class="blind-flow">
+        <div class="blind-step">
           <div style="font-size: 10px; color: #1B5E20; font-weight: 700;">01  ·  样本冻结</div>
           <div style="font-size: 11px; color: #4A5A4A; line-height: 1.4; margin-top: 2px;">按租赁 / 合同争议筛选 100 公开裁判文书  ·  脱敏并隐藏裁判结果</div>
         </div>
-        <div style="flex: 1; background: linear-gradient(135deg, #E8F5E9 0%, #FAF7F0 100%); border-left: 4px solid #1B5E20; padding: 8px 10px; border-radius: 4px;">
+        <div class="blind-step">
           <div style="font-size: 10px; color: #1B5E20; font-weight: 700;">02  ·  标准答案</div>
           <div style="font-size: 11px; color: #4A5A4A; line-height: 1.4; margin-top: 2px;">由判决要点 + 引用规则 + 人工标注共同形成金标准</div>
         </div>
-        <div style="flex: 1; background: linear-gradient(135deg, #FFF8E0 0%, #FAF7F0 100%); border-left: 4px solid #B8860B; padding: 8px 10px; border-radius: 4px;">
+        <div class="blind-step pending">
           <div style="font-size: 10px; color: #8B6914; font-weight: 700;">03  ·  三组对照</div>
           <div style="font-size: 11px; color: #4A5A4A; line-height: 1.4; margin-top: 2px;">人工专家  vs  通用大模型  vs  RiskLens, 使用同一材料 + 时间窗口</div>
         </div>
-        <div style="flex: 1; background: linear-gradient(135deg, #E8F5E9 0%, #FAF7F0 100%); border-left: 4px solid #1B5E20; padding: 8px 10px; border-radius: 4px;">
+        <div class="blind-step pending">
           <div style="font-size: 10px; color: #1B5E20; font-weight: 700;">04  ·  统一评分</div>
           <div style="font-size: 11px; color: #4A5A4A; line-height: 1.4; margin-top: 2px;">法规召回率 / 错误引用率 / 重大风险漏检率 / 证据定位正确性 4 维</div>
         </div>
-        <div style="flex: 1; background: linear-gradient(135deg, #E8F5E9 0%, #FAF7F0 100%); border-left: 4px solid #1B5E20; padding: 8px 10px; border-radius: 4px;">
+        <div class="blind-step pending">
           <div style="font-size: 10px; color: #1B5E20; font-weight: 700;">05  ·  复核发布</div>
           <div style="font-size: 11px; color: #4A5A4A; line-height: 1.4; margin-top: 2px;">双盲评分  ·  分歧进入复核  ·  保留样本 + 版本 + 评分记录</div>
         </div>
@@ -2736,30 +2752,29 @@ ul.list li::before {
     </div>
     <div class="blind-grid" style="flex: 1; min-height: 0;">
       <div class="blind-case">
-        <div class="key">CASE_ID:</div>  (2023) 京 01 民终 5678 号
-        <div class="key mt-2">CAUSE:</div>  股权转让纠纷
+        <div class="key">DEMO_CASE_ID:</div>  sandbox-001
+        <div class="key mt-2">STATUS:</div>  演示输入结构（不纳入正式评测）
         <div class="key mt-2">FACTS:</div>
-        <div class="quote">原告 2018 年以 200 万元受让被告 10% 股权,约定两年内上市,否则回购。至今未上市。原告请求回购 + 利息。</div>
+        <div class="quote">展示材料事实、待核验问题与证据片段如何被结构化记录；不展示真实个人信息或未公开裁判结论。</div>
         <div class="key mt-2">QUERY:</div>  "本案原告能否请求股权回购？"
-        <div class="key mt-2">DATE:</div>  2026-08-25
-        <div class="method">METHOD: 从裁判文书网随机 100 个真实案件,只给 AI 看"案由 + 事实 + 诉求",不告诉判决结果,对比 AI 结论与法院实际判决。本结果为步骤 1-2 预测试,未经步骤 4-5 复核,正式结果以复核发布版为准。</div>
+        <div class="key mt-2">PROTOCOL:</div>  冻结样本 → 标准答案 → 三组对照 → 统一评分 → 复核发布
+        <div class="method">METHOD: 正式盲测仅使用来源可核验、已完成脱敏和预注册的数据集。结果在独立评分、分歧复核和版本留档完成前不发布为能力指标。</div>
       </div>
       <div class="blind-result">
         <div class="blind-score-card">
-          <div class="blind-score">85.7%</div>
+          <div class="blind-score">方案</div>
           <div class="blind-score-meta">
-            <div class="big">100 案件 ·  85 案相符</div>
-            <div class="sub">RATE  ·  裁判文书网<br>BLIND TEST  ·  2026-08-25<br>待复核  ·  pre-registered</div>
+            <div class="big">正式指标待独立复核</div>
+            <div class="sub">STATUS  ·  PRE-REGISTERED<br>OUTPUT  ·  METHOD + EVIDENCE<br>NO UNVERIFIED SCORE</div>
           </div>
         </div>
         <div class="blind-detail">
-          <div class="row"><span><b>测试样本</b></span><span>100 案 (裁判文书网)</span></div>
-          <div class="row"><span><b>AI 结论与判决相符</b></span><span style="color: var(--green-d);"><b>85 案 (85%)</b></span></div>
-          <div class="row"><span><b>法官额外引用 (AI 未提)</b></span><span>10 案 (学理)</span></div>
-          <div class="row"><span><b>法官从更宽原则判决</b></span><span>5 案 (公平)</span></div>
-          <div class="row"><span><b>AI 与人工耗时比</b></span><span style="color: var(--gold-d);"><b>5.2s vs 2 天</b></span></div>
-          <div class="row"><span><b>AI 与人工成本比</b></span><span style="color: var(--green-d);"><b>¥1 vs ¥3000</b></span></div>
-          <div class="row"><span><b>复核状态</b></span><span style="color: #B8860B;"><b>待复核 (pre-reg)</b></span></div>
+          <div class="row"><span><b>评测样本</b></span><span>冻结后记录来源与版本</span></div>
+          <div class="row"><span><b>人工对照</b></span><span>独立专家复核与分歧裁决</span></div>
+          <div class="row"><span><b>传统基线</b></span><span>固定检索 / RAG 配置</span></div>
+          <div class="row"><span><b>产品指标</b></span><span>召回、错误引用、重大风险漏检</span></div>
+          <div class="row"><span><b>结果发布</b></span><span>仅发布已复核口径</span></div>
+          <div class="row"><span><b>复核状态</b></span><span style="color: #B8860B;"><b>方法已登记，结果待复核</b></span></div>
         </div>
       </div>
     </div>
@@ -2772,7 +2787,7 @@ ul.list li::before {
       <h1 class="fade-init">金睛 <span class="gold">RiskLens</span></h1>
       <div class="tag slide-up-init">法律 AI Agent  ·  让专业法律研究人人可及</div>
       <div class="summary-divider"></div>
-      <div class="desc slide-up-init">让法律类 AI 更可用, 也更可信  ·  看见风险, 也看见依据  ·  ¥1 替代 ¥3000 律师咨询</div>
+      <div class="desc slide-up-init">让法律类 AI 更可用，也更可信 · 看见风险，也看见依据 · 输出保留人工复核边界</div>
       <a class="summary-cta slide-up-init" href="https://fangzhou.chat/risklens" target="_blank">FANGZHOU.CHAT/RISKLENS  →</a>
     </div>
     <div class="summary-meta">
