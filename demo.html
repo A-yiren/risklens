@@ -2843,9 +2843,9 @@ ul.list li::before {
   <section class="slide" data-slide="17">
     <div class="header"><span class="brand">金睛 RISKLENS  ·  FINANCIAL EDITION</span><span class="num">17 / 22</span></div>
     <div class="title-block">
-      <div class="eyebrow">04  ·  FINANCIAL SCENARIO  ·  让企业融资材料预审更可控</div>
-      <h1 class="title">不是替代授信判断，而是先把材料工作做扎实</h1>
-      <div class="subtitle">聚焦中小企业流动资金融资准备：把“找材料、核字段、查依据、交人工”收敛为可验证的一条任务链路。</div>
+      <div class="eyebrow">04  ·  FINANCIAL SCENARIO  ·  企业融资材料工作台</div>
+      <h1 class="title">从“找材料、拼结论”，转向“看差异、作判断”</h1>
+      <div class="subtitle">聚焦中小企业流动资金融资准备：把“找材料、核字段、查依据、交人工”收敛为一条可验证、可交接的任务链路。</div>
     </div>
     <div class="finance-grid">
       <div class="finance-card green"><div class="fin-no">ROLE 01 · 企业融资经办人</div><h3>材料准备，一次看清</h3><p>围绕营业执照、融资申请、财务报表、纳税材料、流水、合同与账龄表建立受控清单，提前显示缺件与不可读文件。</p><span class="fin-tag">材料清单</span><span class="fin-tag">可读性</span></div>
@@ -2872,7 +2872,7 @@ ul.list li::before {
   <!-- ============ Slide 19 四道防线 ============ -->
   <section class="slide" data-slide="19">
     <div class="header"><span class="brand">金睛 RISKLENS  ·  TRUSTED FINANCE</span><span class="num">19 / 22</span></div>
-    <div class="title-block"><div class="eyebrow">06  ·  SAFETY  ·  金融材料预审的四道防线</div><h1 class="title">让金融材料预审跑得更稳，关键在每一步都有边界</h1><div class="subtitle">只描述当前工程已实现的控制与生产部署必须落实的要求；不以未验证的认证或“不出域”承诺替代安全治理。</div></div>
+    <div class="title-block"><div class="eyebrow">06  ·  SAFETY  ·  数据、权限、执行、审计四道防线</div><h1 class="title">让金融材料预审跑得更稳，关键在每一次调用都有边界</h1><div class="subtitle">安全治理贯穿材料范围、权限校验、失败处理和证据交付；只描述已实现控制与生产部署必须落实的要求。</div></div>
     <div class="safety-grid">
       <div class="safety-card"><div class="shield">01</div><h3>数据边界</h3><p>预审接口只接受当前登录用户已入库、且本次勾选的私有材料；用户可删除私有材料及预审记录。</p><span class="safety-status">已实现 · 最小化选择</span></div>
       <div class="safety-card"><div class="shield">02</div><h3>权限边界</h3><p>后端以 JWT 识别当前账号，资料、案件与预审记录按用户归属校验；生产环境要求安全配置密钥。</p><span class="safety-status">已实现 · 认证与归属校验</span></div>
@@ -2899,7 +2899,7 @@ ul.list li::before {
   <!-- ============ Slide 21 接入路径 ============ -->
   <section class="slide" data-slide="21">
     <div class="header"><span class="brand">金睛 RISKLENS  ·  DEPLOYMENT</span><span class="num">21 / 22</span></div>
-    <div class="title-block"><div class="eyebrow">08  ·  DEPLOYMENT  ·  从 Demo 验证到机构部署</div><h1 class="title">按数据与责任边界，逐级进入真实业务流程</h1><div class="subtitle">当前提供公开线上 Demo 与可复现工程材料；进入生产环境前，应由部署方完成数据分类、供应商条款、网络地域、保留期限与审计要求的安全评估。</div></div>
+    <div class="title-block"><div class="eyebrow">08  ·  DEPLOYMENT  ·  三种接入路径，按边界灵活落地</div><h1 class="title">从 Demo 验证到机构部署，按数据与责任边界逐级进入流程</h1><div class="subtitle">当前提供公开线上 Demo 与可复现工程材料；进入生产环境前，应由部署方完成数据分类、供应商条款、网络地域、保留期限与审计要求的安全评估。</div></div>
     <div class="finance-steps"><div class="step-card"><div class="step-num">PATH 01 · DEMO / 试点</div><h3>线上演示环境</h3><p>用于流程验证、功能体验和去标识化示例材料演示。评委可从“融资材料预审”完成材料选择、规则核验、证据查看与人工交接体验。</p><div class="method">适用：可用性验证，不承载真实客户资料。</div></div><div class="step-card"><div class="step-num">PATH 02 · 受控网络</div><h3>专有环境部署</h3><p>将应用、存储、访问策略与模型服务纳入经批准的网络和账号体系，配置数据保留、删除、备份、日志与供应商安全条款。</p><div class="method">适用：机构试点与受控业务协作。</div></div><div class="step-card"><div class="step-num">PATH 03 · 机构生产</div><h3>纳入既有治理</h3><p>对接权限、审批、监控、审计与应急流程；由机构决定是否允许外部模型调用，并保留有权人员的最终判断职责。</p><div class="method">适用：合规评审通过后的生产接入。</div></div></div>
     <div class="chart-card" style="margin-top:14px; flex:0 0 auto;"><h4>可验证工程证据</h4><div class="row"><span><b>线上体验</b></span><span>https://fangzhou.chat/risklens/</span></div><div class="row"><span><b>公开工程</b></span><span>github.com/A-yiren/risklens · 运行入口、依赖、部署、测试和示例评测</span></div><div class="row"><span><b>合规说明</b></span><span>DATA_COMPLIANCE_FINANCE.md · 数据来源、外部模型边界、隐私保护与人工决定边界</span></div></div>
   </section>

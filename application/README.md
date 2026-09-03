@@ -1,14 +1,14 @@
 # 金睛 RiskLens
 
-> 企业流动资金融资材料预审与金融合规参考助手 | Boundless Agents · AI+金融
+> 企业流动资金融资材料预审与金融合规参考助手｜从“找材料、拼结论”转向“看差异、作判断”｜Boundless Agents · AI+金融
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)](https://fastapi.tiangolo.com/)
 [![Demo](https://img.shields.io/badge/demo-fangzhou.chat/risklens-gold)](https://fangzhou.chat/risklens/)
 
-> **让每一次材料核验都有来源、边界和人工交接。**
+> **让每一次材料核验都有来源、边界和人工交接；让业务人员把时间用在核对差异与作出判断上。**
 
-金睛 RiskLens 的主场景是中小企业流动资金融资材料预审：选择私有材料后，系统完成解析、规则核验、字段一致性检查、官方法规参考检索与证据回链，并将最终决定交给有权人员。金融合规问答保留 A1 焦点识别、A2 参考分析、A3 引用核验链路。
+金睛 RiskLens 的主场景是中小企业流动资金融资材料预审：选择私有材料后，系统完成解析、规则核验、字段一致性检查、官方法规参考检索与证据回链，并将最终决定交给有权人员。它并不输出授信、放款、投资或理赔结论，而是将缺件、差异、证据与待核实事项组织为可交接的预审底稿。金融合规问答保留 A1 焦点识别、A2 参考分析、A3 引用核验链路。
 
 > 复赛快速验收、演示步骤与要求映射见 [`docs/BOUNDLESS_AGENTS_REVIEW.md`](docs/BOUNDLESS_AGENTS_REVIEW.md)；数据来源与高风险边界见 [`docs/DATA_COMPLIANCE_FINANCE.md`](docs/DATA_COMPLIANCE_FINANCE.md)。
 
